@@ -1,0 +1,23 @@
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales de Office
+~$*.docx
+~$*.pptx
+~$*.xlsx
+
+# Archivos de editor
+*.swp
+*.swo
+*~
+
+# Archivos grandes (opcional: excluir videos si usas enlaces)
+*.mp4
+*.avi
+*.mov
+
+# Entornos virtuales (si usas Python)
+venv/
+env/
+__pycache__/
