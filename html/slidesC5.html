@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 5: Diseño y Localización de Centros de Distribución</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0B192C;
+            color: #F1F6F9;
+        }
+        
+        .code-font {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B192C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E3E62;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFD700;
+        }
+
+        .slide-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Interactive grid effect */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(30, 62, 98, 0.2) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(30, 62, 98, 0.2) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-[#0B192C] border-b border-[#1E3E62] px-6 py-4 flex flex-wrap justify-between items-center z-10 gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-[#1E3E62] rounded-lg border border-[#FFD700]/30 text-[#FFD700]">
+                <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                    USS Gestión Logística <span class="text-xs px-2 py-0.5 bg-[#1E3E62] text-[#FFD700] rounded-full border border-[#FFD700]/20 font-mono">FITA0087</span>
+                </h1>
+                <p class="text-xs text-slate-400">Clase 5: Diseño y Localización de Centros de Distribución (CD)</p>
+            </div>
+        </div>
+
+        <!-- Mode Selectors -->
+        <div class="flex bg-[#1E3E62]/50 p-1 rounded-xl border border-[#1E3E62] gap-1">
+            <button id="btn-projector" onclick="switchMode('projector')" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-[#1E3E62] text-white shadow-lg shadow-black/20">
+                <i data-lucide="presentation" class="w-4 h-4"></i>
+                Vista Proyector
+            </button>
+            <button id="btn-slides" onclick="switchMode('slides')" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-[#1E3E62]/30">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                Asistente Google Slides
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content -->
+    <main class="flex-1 flex overflow-hidden relative">
+
+        <!-- MODE 1: PROJECTOR (Interactive Slide Deck) -->
+        <div id="mode-projector" class="flex-1 flex flex-col h-full slide-deck relative grid-bg">
+            <!-- Slide Container -->
+            <div class="flex-1 flex items-center justify-center p-6 md:p-12 relative overflow-hidden">
+                
+                <!-- PROGRESS BAR -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-[#1E3E62] z-20">
+                    <div id="slide-progress" class="h-full bg-gradient-to-right from-amber-400 to-[#FFD700] slide-transition" style="width: 7.14%;"></div>
+                </div>
+
+                <!-- DIAPOSITIVA 1: Portada -->
+                <div id="slide-1" class="slide-item w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">CLASE 5 • INTRODUCCIÓN</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 1 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-6">
+                        <div class="space-y-2">
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                                Diseño y Localización Estratégica de <span class="text-[#FFD700]">Centros de Distribución</span>
+                            </h2>
+                            <p class="text-lg md:text-xl text-slate-300 max-w-3xl">
+                                Configuración macro de redes de abastecimiento y optimización interna de layouts operativos.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-[#1E3E62] max-w-xl flex flex-col gap-2">
+                            <div class="flex items-center gap-2 text-sm text-slate-300">
+                                <span class="w-2 h-2 rounded-full bg-[#FFD700]"></span>
+                                <strong>Resultado de Aprendizaje (RA):</strong>
+                            </div>
+                            <p class="text-sm italic text-slate-400 pl-4">
+                                "Conoce algunos layouts de CD junto con las variables para determinar su localización."
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-xs text-slate-400">
+                        <p class="flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5 text-[#FFD700]"></i> Programa Advance • Ingeniería Industrial</p>
+                        <p class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5 text-[#FFD700]"></i> 2º Trimestre 2025</p>
+                    </div>
+                </div>
+
+                <!-- DIAPOSITIVA 2: Mapa de Navegación -->
+                <div id="slide-2" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">CONEXIÓN CURRICULAR</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 2 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-6">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="git-branch" class="text-[#FFD700] w-6 h-6"></i> Mapa de Ruta del Aprendizaje
+                        </h3>
+                        <p class="text-sm text-slate-300">¿Cómo se conecta esta clase con nuestro recorrido en el trimestre?</p>
+                        
+                        <!-- Timeline flow grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 pt-2">
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] opacity-60">
+                                <span class="text-xs font-mono text-slate-400 block mb-1">Clase 1</span>
+                                <h4 class="text-xs font-bold text-white uppercase">Gestión SCM</h4>
+                                <p class="text-[10px] text-slate-400 mt-1">Definición de flujos estratégicos.</p>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] opacity-60">
+                                <span class="text-xs font-mono text-slate-400 block mb-1">Clase 2</span>
+                                <h4 class="text-xs font-bold text-white uppercase">Push & Pull</h4>
+                                <p class="text-[10px] text-slate-400 mt-1">Lógicas de arrastre y empuje.</p>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] opacity-60">
+                                <span class="text-xs font-mono text-slate-400 block mb-1">Clase 3</span>
+                                <h4 class="text-xs font-bold text-white uppercase">SCOR & KPIs</h4>
+                                <p class="text-[10px] text-slate-400 mt-1">Medición de productividad y uso.</p>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] opacity-60">
+                                <span class="text-xs font-mono text-slate-400 block mb-1">Clase 4</span>
+                                <h4 class="text-xs font-bold text-white uppercase">IT Logística</h4>
+                                <p class="text-[10px] text-slate-400 mt-1">WMS, ERP, CRM en la práctica.</p>
+                            </div>
+                            <div class="p-4 bg-gradient-to-b from-[#1E3E62] to-[#0B192C] rounded-xl border border-[#FFD700]/30 shadow-lg relative">
+                                <span class="absolute -top-2.5 right-2 text-[9px] font-bold bg-[#FFD700] text-[#0B192C] px-2 py-0.5 rounded-full font-mono uppercase">Hoy</span>
+                                <span class="text-xs font-mono text-[#FFD700] block mb-1">Clase 5</span>
+                                <h4 class="text-xs font-bold text-white uppercase">Redes & Layout</h4>
+                                <p class="text-[10px] text-slate-300 mt-1">Ubicación del nodo y su interior.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#1E3E62]/30 p-3 rounded-lg border border-[#1E3E62] text-xs text-slate-300">
+                            <strong>El Gancho Ingenieril:</strong> No podemos implementar el WMS (Clase 4) ni lograr los KPIs de utilización del espacio (Clase 3) si primero no diseñamos correctamente la localización óptima de la red y el layout interno en base al análisis ABC.
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 3: Agenda de la Sesión -->
+                <div id="slide-3" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">AGENDA</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 3 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-6">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="clock" class="text-[#FFD700] w-6 h-6"></i> Agenda de la Sesión (45 Minutos)
+                        </h3>
+                        <p class="text-sm text-slate-300">Minutero didáctico de la clase teórica previa al taller:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-l-4 border-l-[#FFD700] border-[#1E3E62]">
+                                <span class="text-[#FFD700] font-mono text-sm font-bold block mb-1">00' - 15' (15 min)</span>
+                                <h4 class="text-xs font-bold text-white uppercase mb-2">Estrategia Macro</h4>
+                                <ul class="text-[10px] text-slate-400 space-y-1 list-disc pl-3">
+                                    <li>Justificación del CEDI</li>
+                                    <li>Risk Pooling e Incertidumbre</li>
+                                    <li>Variables de localización</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-l-4 border-l-amber-500 border-[#1E3E62]">
+                                <span class="text-amber-500 font-mono text-sm font-bold block mb-1">15' - 30' (15 min)</span>
+                                <h4 class="text-xs font-bold text-white uppercase mb-2">Modelado Cuantitativo</h4>
+                                <ul class="text-[10px] text-slate-400 space-y-1 list-disc pl-3">
+                                    <li>Modelo de Gravedad</li>
+                                    <li>Trade-off de costos</li>
+                                    <li>Algoritmos de Redes (MILP)</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-l-4 border-l-emerald-500 border-[#1E3E62]">
+                                <span class="text-emerald-500 font-mono text-sm font-bold block mb-1">30' - 40' (10 min)</span>
+                                <h4 class="text-xs font-bold text-white uppercase mb-2">Diseño de Bodega</h4>
+                                <ul class="text-[10px] text-slate-400 space-y-1 list-disc pl-3">
+                                    <li>Layout en U vs. Continuo</li>
+                                    <li>Actividades e intralogística</li>
+                                    <li>Dedicado vs. Compartido (WMS)</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-l-4 border-l-cyan-500 border-[#1E3E62]">
+                                <span class="text-cyan-500 font-mono text-sm font-bold block mb-1">40' - 45' (5 min)</span>
+                                <h4 class="text-xs font-bold text-white uppercase mb-2">Cierre & Enlace</h4>
+                                <ul class="text-[10px] text-slate-400 space-y-1 list-disc pl-3">
+                                    <li>Trade-offs estructurales</li>
+                                    <li>Instrucciones del Taller</li>
+                                    <li>Presentación de la Rúbrica</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 4: ¿Por qué tener un Centro de Distribución? -->
+                <div id="slide-4" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">MACRO LOGÍSTICA</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 4 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="git-merge" class="text-[#FFD700] w-6 h-6"></i> ¿Por qué tener un CEDI? La Visión Estratégica
+                        </h3>
+                        <p class="text-sm text-slate-300">
+                            Un Centro de Distribución (CD) no es una simple bodega estática de costo. Es un regulador dinámico de flujos de valor:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-2">
+                                <div class="text-amber-400 flex items-center gap-2 font-bold text-sm uppercase">
+                                    <i data-lucide="trending-down" class="w-4 h-4"></i> Consolidador de Carga
+                                </div>
+                                <p class="text-xs text-slate-300">
+                                    Agrupa envíos pequeños de múltiples proveedores para generar economías de escala en el transporte principal (*Inbound*). Reduce drásticamente el costo por unidad transportada.
+                                </p>
+                            </div>
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-2">
+                                <div class="text-[#FFD700] flex items-center gap-2 font-bold text-sm uppercase">
+                                    <i data-lucide="activity" class="w-4 h-4"></i> Regulador de Variabilidad
+                                </div>
+                                <p class="text-xs text-slate-300">
+                                    Desacopla el ritmo de fabricación (lotes industriales masivos, lógicas *Push*) de la variabilidad cambiante de la demanda del retail o cliente final (lógicas *Pull*).
+                                </p>
+                            </div>
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-2">
+                                <div class="text-emerald-400 flex items-center gap-2 font-bold text-sm uppercase">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i> Nivel de Servicio
+                                </div>
+                                <p class="text-xs text-slate-300">
+                                    Acerca los productos al mercado objetivo, garantizando la tasa de surtido de pedidos (*Order Fill Rate*) y tiempos mínimos de ciclo de entrega.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 5: Mitigación de Incertidumbre: El Risk Pooling -->
+                <div id="slide-5" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">STRATEGIC RISK POOLING</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 5 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="calculator" class="text-[#FFD700] w-6 h-6"></i> El Beneficio de la Agregación: Risk Pooling
+                        </h3>
+                        <p class="text-sm text-slate-300">
+                            Cuando consolidamos el inventario en menos ubicaciones centrales, la variabilidad agregada disminuye, permitiendo optimizar drásticamente el inventario de seguridad.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-4">
+                                <h4 class="text-sm font-bold text-white flex items-center gap-2 uppercase">
+                                    <span class="text-[#FFD700] font-mono">1.</span> Ley de la Raíz Cuadrada
+                                </h4>
+                                <p class="text-xs text-slate-300">
+                                    Si el número de almacenes independientes se reduce en un factor de $n$, el inventario de seguridad consolidado disminuye en un factor de $\sqrt{n}$:
+                                </p>
+                                <div class="bg-[#0B192C] p-3 rounded-lg border border-[#1E3E62] text-center">
+                                    <span class="code-font text-sm text-[#FFD700] font-bold">
+                                        I<sub>seguridad_Nuevo</sub> = I<sub>seguridad_Original</sub> &times; (1 / &radic;n)
+                                    </span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">
+                                    *Ejemplo:* Reducir 4 tiendas independientes ($n=4$) a 1 CD centralizado disminuye el stock de seguridad requerido a la mitad ($1/\sqrt{4} = 1/2$).
+                                </p>
+                            </div>
+
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-4">
+                                <h4 class="text-sm font-bold text-white flex items-center gap-2 uppercase">
+                                    <span class="text-[#FFD700] font-mono">2.</span> Impacto en Capital e Incertidumbre
+                                </h4>
+                                <div class="space-y-2 text-xs text-slate-300">
+                                    <div class="flex gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+                                        <span><strong>Liberación de Capital:</strong> Al eliminar la duplicación inútil de reservas de protección, se evita el desperdicio de capital inmovilizado.</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+                                        <span><strong>Mejora de CSL (Nivel de Servicio):</strong> Un único stock amortiguador absorbe mejor los picos aleatorios de demanda agregada del mercado.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 6: Variables y Análisis Multifactorial de Localización -->
+                <div id="slide-6" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">LOCALIZACIÓN MACRO</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 6 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="globe" class="text-[#FFD700] w-6 h-6"></i> Análisis Multifactorial de Localización
+                        </h3>
+                        <p class="text-sm text-slate-300">La decisión del "DÓNDE" requiere balancear tres grandes dimensiones exógenas y endógenas:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                            <div class="bg-[#1E3E62]/20 p-4 rounded-xl border border-[#1E3E62] space-y-2">
+                                <span class="text-amber-400 text-xs font-bold font-mono tracking-wider block">PILLAR 1: GLOBAL & POLÍTICO</span>
+                                <h4 class="text-sm font-bold text-white uppercase">Factores Macroeconómicos</h4>
+                                <ul class="text-xs text-slate-300 space-y-1 list-disc pl-4 leading-snug">
+                                    <li>Incentivos fiscales y subsidios de gobiernos locales.</li>
+                                    <li>Aranceles, impuestos y regulaciones de comercio exterior.</li>
+                                    <li>Estabilidad sociopolítica y jurídica del territorio.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[#1E3E62]/20 p-4 rounded-xl border border-[#1E3E62] space-y-2">
+                                <span class="text-[#FFD700] text-xs font-bold font-mono tracking-wider block">PILLAR 2: INFRAESTRUCTURA</span>
+                                <h4 class="text-sm font-bold text-white uppercase">Factores Operacionales</h4>
+                                <ul class="text-xs text-slate-300 space-y-1 list-disc pl-4 leading-snug">
+                                    <li>Acceso a autopistas, corredores ferroviarios o terminales portuarias.</li>
+                                    <li>Costo de arriendo / compra de suelo por metro cuadrado ($/m²).</li>
+                                    <li>Disponibilidad de mano de obra especializada en la región.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[#1E3E62]/20 p-4 rounded-xl border border-[#1E3E62] space-y-2">
+                                <span class="text-emerald-400 text-xs font-bold font-mono tracking-wider block">PILLAR 3: COMERCIAL</span>
+                                <h4 class="text-sm font-bold text-white uppercase">Estrategia y Mercado</h4>
+                                <ul class="text-xs text-slate-300 space-y-1 list-disc pl-4 leading-snug">
+                                    <li>Proximidad y densidad de los centros de demanda (clientes).</li>
+                                    <li>Posición de los competidores (agrupamiento estratégico vs. aislamiento).</li>
+                                    <li>Tiempos de tránsito máximos tolerables por el cliente final.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 7: Modelación Cuantitativa Fase I: Modelo de Gravedad -->
+                <div id="slide-7" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-6 md:p-10 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">LOCALIZACIÓN QUANTITATIVA</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 7 / 14</span>
+                    </div>
+                    
+                    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-3">
+                            <h3 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                                <i data-lucide="compass" class="text-[#FFD700] w-6 h-6"></i> El Modelo de Gravedad
+                            </h3>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Busca ubicar el CD en el centroide bidimensional que minimice el costo de transporte ponderado por el volumen de carga. Su principio es que el CD debe colocarse donde ocurra la menor "fuerza de atracción de costos":
+                            </p>
+                            <!-- Formulas -->
+                            <div class="grid grid-cols-2 gap-2 text-center">
+                                <div class="bg-[#0B192C] p-2 rounded border border-[#1E3E62]">
+                                    <span class="block text-[10px] text-slate-400 uppercase font-mono">Coordenada X<sub>CG</sub></span>
+                                    <span class="text-xs font-bold text-[#FFD700]">(&Sigma; X<sub>i</sub> &middot; W<sub>i</sub>) / &Sigma; W<sub>i</sub></span>
+                                </div>
+                                <div class="bg-[#0B192C] p-2 rounded border border-[#1E3E62]">
+                                    <span class="block text-[10px] text-slate-400 uppercase font-mono">Coordenada Y<sub>CG</sub></span>
+                                    <span class="text-xs font-bold text-[#FFD700]">(&Sigma; Y<sub>i</sub> &middot; W<sub>i</sub>) / &Sigma; W<sub>i</sub></span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] text-slate-400">
+                                ⚠️ <strong>Limitaciones:</strong> Asume costos puramente lineales con la distancia, no ve barreras geográficas (cerros, ríos) ni considera costos fijos de apertura de bodegas.
+                            </p>
+                        </div>
+
+                        <!-- LIVE GRAVITY CALCULATOR WIDGET -->
+                        <div class="bg-[#0B192C]/80 p-4 rounded-xl border border-[#1E3E62] space-y-3">
+                            <span class="text-[10px] font-mono tracking-wider bg-[#1E3E62] px-2 py-0.5 rounded text-[#FFD700] font-bold block w-fit">SIMULADOR EN VIVO PARA LA CLASE</span>
+                            
+                            <!-- Input Grid -->
+                            <div class="grid grid-cols-4 gap-1 text-[10px]">
+                                <span class="font-bold text-slate-300">Punto</span>
+                                <span class="font-bold text-slate-300">Coord X</span>
+                                <span class="font-bold text-slate-300">Coord Y</span>
+                                <span class="font-bold text-slate-300">Carga W</span>
+
+                                <span>P1 (Prov)</span>
+                                <input type="number" id="p1-x" value="100" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                                <input type="number" id="p1-y" value="200" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                                <input type="number" id="p1-w" value="500" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+
+                                <span>P2 (Ret A)</span>
+                                <input type="number" id="p2-x" value="400" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                                <input type="number" id="p2-y" value="100" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                                <input type="number" id="p2-w" value="800" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+
+                                <span>P3 (Ret B)</span>
+                                <input type="number" id="p3-x" value="250" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                                <input type="number" id="p3-y" value="500" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                                <input type="number" id="p3-w" value="300" class="bg-[#1E3E62] text-white px-1 rounded text-center w-full" oninput="calculateCentroid()">
+                            </div>
+
+                            <!-- Plot Container -->
+                            <div class="h-28 bg-[#1E3E62]/10 rounded border border-[#1E3E62] relative overflow-hidden flex items-center justify-center">
+                                <svg id="gravity-svg" class="w-full h-full" viewBox="0 0 500 500">
+                                    <line x1="0" y1="250" x2="500" y2="250" stroke="#1E3E62" stroke-dasharray="2,2"/>
+                                    <line x1="250" y1="0" x2="250" y2="500" stroke="#1E3E62" stroke-dasharray="2,2"/>
+                                    <!-- Points generated dynamically by JS -->
+                                </svg>
+                            </div>
+
+                            <div class="text-center text-xs font-mono bg-[#1E3E62]/30 py-1.5 rounded border border-[#FFD700]/20">
+                                <span class="text-slate-300">Coordenadas del CD Óptimo:</span>
+                                <strong id="centroid-result" class="text-[#FFD700] ml-1">X = 278.1, Y = 206.3</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 8: Modelación Cuantitativa Fase II: Algoritmos de Optimización de Redes -->
+                <div id="slide-8" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">DISEÑO DE RED COMPLEJA</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 8 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="trending-up" class="text-[#FFD700] w-6 h-6"></i> Modelos de Optimización (MILP)
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            A diferencia del modelo geométrico de gravedad, el diseño de red real requiere formulación matemática para balancear el **Trade-off clásico de Prologis**: Costo Fijo de Apertura vs. Costo Variable de Transporte.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-3">
+                                <h4 class="text-xs font-bold text-white tracking-wider font-mono uppercase">Estructura del Modelo MILP</h4>
+                                <div class="space-y-2 text-xs text-slate-300">
+                                    <div>
+                                        <span class="text-[#FFD700] font-bold font-mono">1. Variables de Decisión Binarias (y<sub>i</sub>):</span>
+                                        <p class="text-[11px] text-slate-400">1 si se abre la instalación en el sitio potential <i>i</i>; 0 en caso contrario.</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-[#FFD700] font-bold font-mono">2. Variables de Flujo Continuas (x<sub>ij</sub>):</span>
+                                        <p class="text-[11px] text-slate-400">Cantidad física despachada desde el CD <i>i</i> hacia el mercado <i>j</i>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-3">
+                                <h4 class="text-xs font-bold text-white tracking-wider font-mono uppercase">Función Objetivo Estándar</h4>
+                                <div class="bg-[#0B192C] p-3 rounded-lg border border-[#1E3E62] flex items-center justify-center">
+                                    <span class="code-font text-xs text-[#FFD700]">
+                                        Minimizar Z = &sum; (f<sub>i</sub> &middot; y<sub>i</sub>) + &sum; &sum; (c<sub>ij</sub> &middot; x<sub>ij</sub>)
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-snug">
+                                    Donde $f_i$ es el costo fijo de instalación anualizado y $c_{ij}$ es el costo de despacho por unidad de producto. Este modelo obliga a la red a consolidar o descentralizar nodos según el volumen total.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 9: El Flujo Operativo Interno del CD -->
+                <div id="slide-9" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">INTRALOGÍSTICA</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 9 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="workflow" class="text-[#FFD700] w-6 h-6"></i> El Flujo Operativo Interno
+                        </h3>
+                        <p class="text-sm text-slate-300">El layout interno debe asegurar un recorrido óptimo de los materiales para minimizar costos y lead times:</p>
+                        
+                        <!-- Flow Diagram -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] text-center relative">
+                                <span class="text-slate-400 text-[10px] font-mono block mb-1">1. Entrada</span>
+                                <h4 class="text-sm font-bold text-white uppercase">Recepción</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-snug">Descarga de camiones, control de calidad y validación transaccional con WMS (ASN).</p>
+                                <div class="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-amber-500 font-bold z-10">&rarr;</div>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] text-center relative">
+                                <span class="text-slate-400 text-[10px] font-mono block mb-1">2. Custodia</span>
+                                <h4 class="text-sm font-bold text-white uppercase">Almacenar</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-snug">Traslado de estibas a posiciones de rack fijas (Dedicado) o caóticas (Compartido).</p>
+                                <div class="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-amber-500 font-bold z-10">&rarr;</div>
+                            </div>
+                            <div class="p-4 bg-[#FFD700]/10 rounded-xl border border-[#FFD700]/30 text-center relative">
+                                <span class="text-[#FFD700] text-[10px] font-mono block mb-1">3. Crítico (50-70% Costo)</span>
+                                <h4 class="text-sm font-bold text-[#FFD700] uppercase">Picking</h4>
+                                <p class="text-[10px] text-slate-300 mt-1 leading-snug">Extracción de SKUs individuales para pedidos. El mayor consumidor de tiempo y mano de obra.</p>
+                                <div class="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-amber-500 font-bold z-10">&rarr;</div>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] text-center">
+                                <span class="text-slate-400 text-[10px] font-mono block mb-1">4. Salida</span>
+                                <h4 class="text-sm font-bold text-white uppercase">Despacho</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-snug">Consolidación, etiquetado y carga de camiones según la ruta asignada por TMS.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#1E3E62]/30 p-3 rounded-lg border border-[#1E3E62] text-xs text-slate-300">
+                            <strong>Puente con el Modelo SCOR:</strong> Estas actividades corresponden al macroproceso **Distribución (Deliver)**. Para mejorar la Productividad y Eficiencia de la mano de obra, el layout debe reducir los recorridos de picking, que representan hasta el 80% de esta labor.
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 10: Configuración Física del Plano: Layout en "U" vs. Flujo Continuo "Y" -->
+                <div id="slide-10" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">BODEGA CONFIGURATIONS</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 10 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="layout" class="text-[#FFD700] w-6 h-6"></i> Layout en "U" vs. Flujo Continuo
+                        </h3>
+                        <p class="text-sm text-slate-300">La configuración de los muelles de carga determina la geometría de flujos dentro del edificio:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-2">
+                                <h4 class="text-sm font-bold text-white uppercase flex items-center gap-2">
+                                    <span class="px-2 py-0.5 bg-[#FFD700] text-[#0B192C] font-mono text-xs rounded">U</span> Layout en "U" (Misma Cara)
+                                </h4>
+                                <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4">
+                                    <li><strong>Muelles compartidos:</strong> Recepción y Despacho ocurren en la misma cara del almacén.</li>
+                                    <li><strong>Flexibilidad de personal:</strong> Los operarios pueden alternar entre carga y descarga fácilmente.</li>
+                                    <li><strong>Uso del espacio:</strong> Excelente utilización de rincones y posiciones traseras.</li>
+                                    <li><strong>Control WMS:</strong> Simplifica la trazabilidad al unificar los puntos de acceso.</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-2">
+                                <h4 class="text-sm font-bold text-white uppercase flex items-center gap-2">
+                                    <span class="px-2 py-0.5 bg-amber-500 text-white font-mono text-xs rounded">Y / I</span> Flujo Continuo (Línea Recta)
+                                </h4>
+                                <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4">
+                                    <li><strong>Flujo lineal:</strong> Recepción en un extremo, despacho en el extremo opuesto sin cruce de caminos.</li>
+                                    <li><strong>Cero obstrucciones:</strong> Evita cuellos de botella de tránsito interno.</li>
+                                    <li><strong>Ideal para Cross-Docking:</strong> Procesamiento de alta rotación donde los productos no se almacenan.</li>
+                                    <li><strong>Desventaja:</strong> Duplica zonas de carga, requiere más terreno y reduce la flexibilidad de mano de obra.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 11: Perfiles Operativos de Almacenamiento (Bodega A vs. Bodega B) -->
+                <div id="slide-11" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">ESTRATEGIA OPERACIONAL</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 11 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="sliders" class="text-[#FFD700] w-6 h-6"></i> Perfiles de Bodegas: Bodega A vs. Bodega B
+                        </h3>
+                        <p class="text-sm text-slate-300">El layout no es un estándar único. Debe diseñarse respondiendo al perfil de demanda y producción:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-3">
+                                <span class="text-amber-400 text-xs font-bold font-mono tracking-wider block">BODEGA A: EFICIENCIA Y ESTABILIDAD</span>
+                                <p class="text-xs text-slate-300">
+                                    Diseñada para productos con demanda altamente predecible y flujos estables. Se enfoca en optimizar costos fijos mediante la automatización:
+                                </p>
+                                <ul class="text-[11px] text-slate-400 space-y-1 list-disc pl-4">
+                                    <li>Fabricación y almacenamiento masivo basado en lógicas *Push*.</li>
+                                    <li>Planificación y slotting centralizado y altamente estandarizado.</li>
+                                    <li>Gran volumen, baja cantidad de SKUs con un comportamiento ABC muy estático.</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-[#1E3E62]/20 p-5 rounded-xl border border-[#1E3E62] space-y-3">
+                                <span class="text-emerald-400 text-xs font-bold font-mono tracking-wider block">BODEGA B: FLEXIBILIDAD Y AGILIDAD</span>
+                                <p class="text-xs text-slate-300">
+                                    Estructurada para entornos muy dinámicos, flujos poco predecibles y de alta variabilidad. Requiere capacidad de respuesta:
+                                </p>
+                                <ul class="text-[11px] text-slate-400 space-y-1 list-disc pl-4">
+                                    <li>Preparación intensiva de pedidos personalizados (lógicas *Pull*).</li>
+                                    <li>Requiere alta flexibilidad en mano de obra y layout adaptativo.</li>
+                                    <li>Cálculo de estanterías y slots altamente cambiante, gobernados en tiempo real.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 12: Estrategia de Ubicación de SKUs: Almacenamiento Dedicado vs. Compartido -->
+                <div id="slide-12" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-6 md:p-10 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">STRATEGY AND SPACE</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 12 / 14</span>
+                    </div>
+
+                    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-3">
+                            <h3 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                                <i data-lucide="package-search" class="text-[#FFD700] w-6 h-6"></i> Dedicado vs. Compartido
+                            </h3>
+                            <p class="text-xs text-slate-300">
+                                El trade-off operativo fundamental reside en equilibrar la **Utilización del Espacio** frente al **Tiempo de Respuesta (Recorrido)**:
+                            </p>
+                            
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2 bg-[#1E3E62]/30 rounded border border-[#1E3E62]">
+                                    <span class="font-bold text-[#FFD700]">Almacenamiento Dedicado (Posición Fija):</span>
+                                    <p class="text-[10px] text-slate-400">Cada SKU tiene asignado un espacio fijo. Rápida localización visual, pero muy baja utilización del espacio (promedio &lt;50%).</p>
+                                </div>
+                                <div class="p-2 bg-[#1E3E62]/30 rounded border border-[#1E3E62]">
+                                    <span class="font-bold text-[#FFD700]">Almacenamiento Compartido (Dinámico/Caótico):</span>
+                                    <p class="text-[10px] text-slate-400">Los SKUs se asignan a cualquier posición vacía disponible. Maximiza la densidad, pero <strong>requiere obligatoriamente un software WMS</strong> para el rastreo en tiempo real.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- INTERACTIVE GRID SIMULATOR -->
+                        <div class="bg-[#0B192C]/80 p-4 rounded-xl border border-[#1E3E62] space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] font-mono tracking-wider bg-[#1E3E62] px-2 py-0.5 rounded text-[#FFD700] font-bold">DEMO TRADEOFF DE ESPACIO</span>
+                                <div class="flex gap-2">
+                                    <button onclick="setGridMode('dedicado')" id="grid-btn-dedicado" class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#FFD700] text-[#0B192C] shadow">Dedicado</button>
+                                    <button onclick="setGridMode('compartido')" id="grid-btn-compartido" class="text-[10px] font-bold px-2 py-0.5 rounded text-slate-400 hover:text-white transition">Compartido</button>
+                                </div>
+                            </div>
+
+                            <!-- Warehouse Racks Visualization -->
+                            <div class="grid grid-cols-6 gap-1.5 p-2 bg-[#1E3E62]/10 rounded border border-[#1E3E62]">
+                                <!-- Generaremos celdas dinámicamente con JS -->
+                                <div id="rack-container" class="contents"></div>
+                            </div>
+
+                            <!-- Dashboard Stats -->
+                            <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+                                <div class="p-1.5 bg-[#1E3E62]/40 rounded border border-[#1E3E62]">
+                                    <span class="block text-slate-400">Utilización Espacio</span>
+                                    <strong id="stat-utilization" class="text-amber-400 text-xs">50%</strong>
+                                </div>
+                                <div class="p-1.5 bg-[#1E3E62]/40 rounded border border-[#1E3E62]">
+                                    <span class="block text-slate-400">WMS Tracker</span>
+                                    <strong id="stat-wms" class="text-[#FFD700] text-xs">No Necesario</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 13: Síntesis de Trade-offs y Conclusiones -->
+                <div id="slide-13" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">TRADE-OFFS & CONCLUSION</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 13 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-4">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="shield-alert" class="text-[#FFD700] w-6 h-6"></i> Síntesis: El Diseño Logístico es un Balance Continuo
+                        </h3>
+                        <p class="text-sm text-slate-300">Como ingenieros industriales, debemos tomar decisiones basadas en la minimización del costo total:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                            <div class="p-5 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] space-y-2">
+                                <div class="flex items-center gap-2 text-sm text-[#FFD700] font-bold uppercase">
+                                    <i data-lucide="milestone" class="w-4 h-4"></i> Localización Macro
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Configura los límites de costo de transporte de la cadena de suministro global. Un error aquí amarra a la empresa a costos variables prohibitivos durante décadas, disminuyendo la rentabilidad global de la red.
+                                </p>
+                            </div>
+                            <div class="p-5 bg-[#1E3E62]/20 rounded-xl border border-[#1E3E62] space-y-2">
+                                <div class="flex items-center gap-2 text-sm text-emerald-400 font-bold uppercase">
+                                    <i data-lucide="move" class="w-4 h-4"></i> Layout Micro
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Determina la velocidad interna de respuesta y los costos operativos diarios de mano de obra (picking y movimientos). Un layout óptimo en base al análisis ABC con software WMS maximiza la utilización y la productividad.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+                <!-- DIAPOSITIVA 14: Enlace al Taller Formativo -->
+                <div id="slide-14" class="slide-item hidden w-full max-w-5xl bg-[#1E3E62]/30 backdrop-blur-md rounded-2xl border border-[#1E3E62] p-8 md:p-12 shadow-2xl flex flex-col justify-between h-[80vh] md:h-[70vh] slide-transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-mono tracking-widest text-[#FFD700] uppercase font-bold bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/20">TALLER FORMATIVO</span>
+                        <span class="text-sm font-mono text-slate-400">Slide 14 / 14</span>
+                    </div>
+                    <div class="my-auto space-y-5">
+                        <div class="space-y-2">
+                            <h3 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
+                                <i data-lucide="play-circle" class="text-[#FFD700] w-7 h-7"></i> ¡Manos a la Obra! Introducción al Taller Práctico
+                            </h3>
+                            <p class="text-sm md:text-base text-slate-300">
+                                Ahora pasaremos a la sesión práctica de 25 minutos para aplicar estas herramientas en problemas reales vinculados a nuestra región.
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-[#1E3E62]/40 rounded-xl border border-[#1E3E62] flex items-start gap-3">
+                                <div class="p-2 bg-[#0B192C] rounded-lg border border-[#FFD700]/20 text-[#FFD700]">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase">Análisis Geográfico</h4>
+                                    <p class="text-[11px] text-slate-400 mt-1">Aplicarás el modelo matemático de gravedad para localizar el nodo óptimo de distribución.</p>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-[#1E3E62]/40 rounded-xl border border-[#1E3E62] flex items-start gap-3">
+                                <div class="p-2 bg-[#0B192C] rounded-lg border border-[#FFD700]/20 text-emerald-400">
+                                    <i data-lucide="columns" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase">Evaluación de Layouts</h4>
+                                    <p class="text-[11px] text-slate-400 mt-1">Diseñarás la estrategia interna (en U vs. Continuo) y políticas de almacenamiento de SKUs en base al ABC.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#FFD700]/10 p-3 rounded-lg border border-[#FFD700]/30 text-xs text-slate-200 flex items-center gap-2">
+                            <i data-lucide="info" class="w-5 h-5 text-[#FFD700] flex-shrink-0"></i>
+                            <span>Consulte la rúbrica formativa antes de comenzar. ¡Mucho éxito en el desarrollo del taller, ingenieros!</span>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400">Universidad San Sebastián • Advance</div>
+                </div>
+
+            </div>
+
+            <!-- Presenter Controls -->
+            <div class="bg-[#0B192C] border-t border-[#1E3E62] py-4 px-6 flex justify-between items-center z-10">
+                <button onclick="prevSlide()" class="p-2 bg-[#1E3E62] hover:bg-[#1E3E62]/80 text-white rounded-lg transition border border-[#FFD700]/20 flex items-center gap-1 text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed" id="btn-prev" disabled>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i> Anterior
+                </button>
+
+                <div class="flex items-center gap-2">
+                    <span id="slide-indicator" class="text-sm font-mono text-slate-300 bg-[#1E3E62] px-3 py-1 rounded-full border border-[#FFD700]/15">Diapositiva 1 / 14</span>
+                </div>
+
+                <button onclick="nextSlide()" class="p-2 bg-gradient-to-r from-amber-500 to-[#FFD700] text-[#0B192C] rounded-lg transition shadow-lg shadow-amber-500/10 hover:brightness-110 flex items-center gap-1 text-sm font-bold" id="btn-next">
+                    Siguiente <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MODE 2: ASISTENTE DE GOOGLE SLIDES (Teacher Help Panel) -->
+        <div id="mode-slides" class="hidden flex-1 flex flex-col md:flex-row h-full overflow-hidden bg-[#0B192C]">
+            <!-- Slide Selector Sidebar -->
+            <div class="w-full md:w-1/4 border-r border-[#1E3E62] overflow-y-auto p-4 flex flex-row md:flex-col gap-2">
+                <h3 class="hidden md:block text-xs font-bold tracking-wider text-[#FFD700] uppercase mb-2">Esquema del Deck</h3>
+                <div id="sidebar-slide-list" class="flex flex-row md:flex-col gap-1 w-full overflow-x-auto md:overflow-x-visible">
+                    <!-- Javascript will populate buttons here -->
+                </div>
+            </div>
+
+            <!-- Content Viewer Section -->
+            <div class="flex-1 flex flex-col overflow-hidden p-6">
+                <div class="flex justify-between items-center border-b border-[#1E3E62] pb-4 mb-4 gap-4">
+                    <div>
+                        <span id="helper-slide-num" class="text-xs font-mono text-[#FFD700] block">DIAPOSITIVA 1</span>
+                        <h2 id="helper-slide-title" class="text-xl font-bold text-white">Portada de la Sesión</h2>
+                    </div>
+                    <!-- Copy Button -->
+                    <button onclick="copySlideToClipboard()" class="flex items-center gap-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold transition shadow-md">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Texto de Diapositiva
+                    </button>
+                </div>
+
+                <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-y-auto pr-2">
+                    <!-- Column 1: Google Slides Formatting Suggestion & Content -->
+                    <div class="space-y-4">
+                        <div class="bg-[#1E3E62]/20 p-4 rounded-xl border border-[#1E3E62] space-y-2">
+                            <span class="text-[10px] font-mono tracking-widest text-[#FFD700] uppercase font-bold block">Layout de Diapositiva Sugerido</span>
+                            <div class="text-xs text-slate-300 leading-relaxed" id="helper-layout-sug">
+                                Portada impactante con fondo azul marino oscuro. Caja con borde dorado sutil en el centro conteniendo el título y resultado de aprendizaje. Logotipos USS en la esquina superior derecha.
+                            </div>
+                        </div>
+
+                        <div class="bg-[#1E3E62]/20 p-4 rounded-xl border border-[#1E3E62] space-y-2">
+                            <span class="text-[10px] font-mono tracking-widest text-[#FFD700] uppercase font-bold block">Contenido en Bullets</span>
+                            <div class="p-3 bg-[#0B192C] rounded-lg border border-[#1E3E62]">
+                                <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4" id="helper-bullets">
+                                    <!-- Populated dynamically -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#1E3E62]/20 p-4 rounded-xl border border-[#1E3E62] space-y-2">
+                            <span class="text-[10px] font-mono tracking-widest text-[#FFD700] uppercase font-bold block">Recursos Gráficos Recomendados</span>
+                            <div class="text-xs text-slate-300 leading-relaxed" id="helper-assets">
+                                Ícono elegante de bodega automatizada o distribución de redes globales. No saturar de imágenes para mantener la sobriedad.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Teacher Script / Speaker Notes -->
+                    <div class="bg-[#1E3E62]/10 p-5 rounded-xl border border-[#1E3E62] flex flex-col h-full">
+                        <div class="flex items-center gap-1.5 border-b border-[#1E3E62] pb-2 mb-3">
+                            <i data-lucide="message-square" class="w-4 h-4 text-[#FFD700]"></i>
+                            <span class="text-[10px] font-mono tracking-widest text-[#FFD700] uppercase font-bold">Guion Docente (Speaker Notes)</span>
+                        </div>
+                        <div class="flex-1 text-xs text-slate-300 leading-relaxed overflow-y-auto pr-1" id="helper-notes">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Notification Toast (For alerts) -->
+    <div id="toast" class="fixed bottom-20 right-6 bg-emerald-600 text-white text-xs px-4 py-3 rounded-lg border border-emerald-400 shadow-2xl transition-all duration-300 transform translate-y-12 opacity-0 z-50 flex items-center gap-2">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-white"></i>
+        <span id="toast-text">¡Contenido copiado al portapapeles!</span>
+    </div>
+
+    <!-- Script Section -->
+    <script>
+        // Total slides in projector
+        const totalSlides = 14;
+        let currentSlide = 1;
+        let currentMode = 'projector';
+
+        // Google Slides Helper content data
+        const slidesData = {
+            1: {
+                num: 1,
+                title: "Portada de la Sesión",
+                layoutSug: "Diapositiva de impacto. Fondo marino oscuro (#0B192C) con un bloque central semitransparente con borde dorado (#FFD700) para el título de la clase. Incluye logo USS USS LEARNING.",
+                bullets: [
+                    "USS GESTIÓN LOGÍSTICA (FITA0087)",
+                    "Clase 5: Diseño de centros de distribución y localización",
+                    "Resultado de aprendizaje: 'Conoce algunos layouts de CD junto con las variables para determinar su localización.'",
+                    "Ingeniería Industrial • Programa Advance"
+                ],
+                assets: "Ícono central lineal de alta definición que represente distribución de redes o silueta de bodega moderna en tonos dorados discretos.",
+                notes: "¡Hola, estimados ingenieros! Muy buenas noches. Bienvenidos a la Clase 5 de Gestión Logística. Hoy cerramos nuestro primer gran ciclo estratégico. En las primeras 4 semanas aprendimos a mapear procesos, analizar trade-offs entre push/pull, calcular KPIs clave de utilización y a entender la lógica de sistemas WMS y ERP. Hoy uniremos todo ese conocimiento para resolver el gran dilema del nodo logístico: ¿dónde ubicamos físicamente nuestro Centro de Distribución y cómo lo configuramos por dentro para que todos los flujos de materiales se sincronicen perfectamente?"
+            },
+            2: {
+                num: 2,
+                title: "Mapa de la Materia",
+                layoutSug: "Diseño de flujo horizontal o línea temporal. 5 bloques en secuencia lógica. Los primeros 4 bloques opacos o de color grisáceo, y el 5º bloque (Clase 5) destacado en color azul más claro o con un borde dorado brillante.",
+                bullets: [
+                    "Clase 1: Introducción a la SCM, objetivos y flujos globales de información, productos y fondos.",
+                    "Clase 2: Procesos internos y manufactura; balance estratégico entre lógicas Push (Empujar) y Pull (Tirar).",
+                    "Clase 3: Medición del desempeño logístico mediante KPIs estructurales (Utilización, Eficiencia, Productividad) y el estándar internacional SCOR.",
+                    "Clase 4: Tecnología de Información (CRM, ERP, WMS, TMS, RS) como soporte integral de transacciones y decisiones.",
+                    "Clase 5 (Hoy): Localización regional óptima (Macro) y Diseño de Layout y políticas internas (Micro)."
+                ],
+                assets: "Diagrama de flujo horizontal o timeline con íconos vectoriales simples de SCM (fábrica, camión, bodega, software, etc.).",
+                notes: "Es vital que antes de entrar a la teoría pura de hoy, entendamos que el diseño y localización no son temas aislados del curso. Lo que decidan hoy en el mapa afectará el ruteo del TMS (Clase 4) y la estructura de transportes (Clase 7 y 8). Y la manera en que configuren las posiciones de racks adentro determinará si su WMS funciona eficientemente o genera un cuello de botella, lo que impactará directamente en su KPI de productividad de picking (Clase 3)."
+            },
+            3: {
+                num: 3,
+                title: "Agenda de la Clase",
+                layoutSug: "Geometría limpia dividida en 4 columnas o cajas verticales, cada una con un color de borde sutil diferente para marcar los tiempos cronológicos y los grandes hitos de la sesión.",
+                bullets: [
+                    "Bloque I (00'-15'): Localización Estratégica Regional y mitigación de incertidumbre mediante el Risk Pooling.",
+                    "Bloque II (15'-30'): Modelos Cuantitativos de Redes (Geometría del Modelo de Gravedad y optimización de costos fijos vs. variables MILP).",
+                    "Bloque III (30'-40'): Diseño de Layout y Layouts de CD (Estructura en U vs. Continuo, políticas de almacenamiento Dedicado vs. Compartido).",
+                    "Bloque IV (40'-45'): Cierre de trade-offs de ingeniería y lanzamiento de taller de aplicación formativa de 25 minutos."
+                ],
+                assets: "Minutero o diagrama con diseño minimalista de reloj o engranaje de tiempos en la parte lateral.",
+                notes: "Como profesionales Advance, nuestro tiempo en clase es oro. Por eso, dividiremos nuestra presentación teórica en tres bloques exactos para dar paso de inmediato a nuestra sesión del taller de aplicación práctica de 25 minutos, donde ustedes trabajarán de forma colaborativa en casos reales del ámbito industrial chileno."
+            },
+            4: {
+                num: 4,
+                title: "¿Por qué tener un Centro de Distribución?",
+                layoutSug: "Esquema de 3 columnas horizontales o tarjetas con íconos ilustrativos de gran calidad. Contraste de colores sobrios y uso de espacios en blanco amplios para mayor legibilidad.",
+                bullets: [
+                    "Consolidación de Demanda: Agrupamiento de pequeños flujos de proveedores para generar economías de escala en el transporte principal.",
+                    "Regulación de Flujo (Push vs. Pull): Desacopla la regularidad de producción basada en especulación o forecast (Push) frente a los picos reales y variabilidad del mercado retail (Pull).",
+                    "Nivel de Servicio al Cliente: Amortiguador y punto físico cercano al mercado meta para asegurar la rápida entrega de los pedidos."
+                ],
+                assets: "Ilustraciones vectoriales de consolidación de carga (varias flechas entrando a un punto y una flecha grande saliendo) y trade-off de flujos.",
+                notes: "Preguntémonos en primer lugar: ¿Por qué una empresa invierte millones de dólares en construir y operar un CD en lugar de enviar directo del proveedor al cliente? La respuesta de ingeniería industrial es doble: economías de escala en el transporte inbound (consolidación de carga) y estabilidad operacional (amortiguar la variabilidad para no parar las líneas productivas)."
+            },
+            5: {
+                num: 5,
+                title: "Mitigación de Incertidumbre: Risk Pooling",
+                layoutSug: "Estructura dividida en dos paneles. Panel izquierdo con la fórmula matemática destacada en fuente mono y fondo oscuro. Panel derecho con dos bullets explicativos del impacto en capital.",
+                bullets: [
+                    "Principio de Risk Pooling: Al consolidar el inventario de múltiples tiendas en una sola ubicación central, la variabilidad de la demanda se reduce matemáticamente.",
+                    "Fórmula de la Ley de la Raíz Cuadrada: I_seguridad_Nuevo = I_seguridad_Original * (1 / 𠇊n), donde n representa el factor de reducción de instalaciones de almacenamiento.",
+                    "Ahorro de Capital: Evita la duplicación inútil de reservas de protección de inventario de seguridad en múltiples bodegas, liberando capital inmovilizado caro de mantener."
+                ],
+                assets: "Icono de escudo protector con flechas que convergen a un punto central. Gráfico o diagrama tipo lego de agregación de riesgos.",
+                notes: "Aquí aplicamos un concepto crucial en el diseño de cadenas de suministro: el Risk Pooling. Matemáticamente, la variabilidad de la demanda agregada es menor que la suma de las variabilidades individuales de cada tienda gestionando su stock por separado. La Ley de la Raíz Cuadrada nos dice exactamente cuánto stock de seguridad de protección nos podemos ahorrar al centralizar. Al reducir 4 almacenes a 1, ¡necesitamos un 50% menos de stock de seguridad para dar el mismo nivel de servicio! Esto es liberar millones en capital de trabajo."
+            },
+            6: {
+                num: 6,
+                title: "Análisis Multifactorial de Localización",
+                layoutSug: "Grid de 3 columnas verticales bien separadas, representando los 3 grandes pilares factoriales de la localización macro regional.",
+                bullets: [
+                    "Macroeconómicos y Políticos: Aranceles, impuestos, incentivos tributarios y exenciones fiscales gubernamentales que definen el marco regulatorio global de la red.",
+                    "Infraestructura y Operacionales: Calidad y conectividad de carreteras, cercanía a puertos/aeropuertos, costos del suelo y disponibilidad de mano de obra local.",
+                    "Competitivos y de Mercado: Cercanía física a centros de demanda, tiempos de respuesta al mercado y ubicación geográfica de los competidores clave."
+                ],
+                assets: "Iconos minimalistas para cada pilar: Balanza de justicia (Político), Camión en carretera (Infraestructura), Gráfico de competencia (Comercial).",
+                notes: "La localización del CD es una decisión de largo plazo altamente irreversible. No podemos mover un edificio de 20.000 metros cuadrados fácilmente al año siguiente si el mercado cambia. Por ello, requerimos un análisis sistemático multifactorial que combine aspectos globales políticos, viabilidad de infraestructura y variables de proximidad al cliente final."
+            },
+            7: {
+                num: 7,
+                title: "Modelación Cuantitativa Fase I: Modelo de Gravedad",
+                layoutSug: "Formato técnico. Lado izquierdo con la definición y la lógica geométrica del modelo. Lado derecho con un gráfico cartesiano representativo mostrando puntos (proveedores/clientes) y un punto centralizado (CD óptimo).",
+                bullets: [
+                    "Premisa Fundamental: El CD debe colocarse en la ubicación bidimensional que ejerza la menor fuerza de atracción de costos ponderada por el volumen de carga.",
+                    "Fórmulas de Coordenadas: X_cg = (Σ X_i * W_i) / Σ W_i; Y_cg = (Σ Y_i * W_i) / Σ W_i. Donde X_i, Y_i son las coordenadas del punto de la red i, y W_i representa el volumen de carga (peso).",
+                    "Limitaciones de Ingeniería: Supone costos de transporte lineales y uniformes, ignora la geografía física real, accesos de carreteras, tráfico y costos fijos de adquisición de suelo."
+                ],
+                assets: "Gráfica cartesiana bidimensional con coordenadas del centro de gravedad. Formula matemática limpia en LaTeX.",
+                notes: "El primer paso matemático para encontrar el lugar ideal es el Modelo de Gravedad. Imaginen que cada proveedor y cada cliente ejerce un 'jalón' gravitacional en base a la cantidad de carga que despachamos hacia o desde ellos. El CD debe ir exactamente en el centroide óptimo. Como ingenieros, debemos advertir a la gerencia que este punto es un ideal geométrico de partida, no la decisión definitiva, porque no ve barreras geográficas reales ni costos de suelo."
+            },
+            8: {
+                num: 8,
+                title: "Modelación Cuantitativa Fase II: Algoritmos de Optimización de Redes",
+                layoutSug: "Estructura avanzada. Lado izquierdo explicando el trade-off de costos de Prologis. Lado derecho mostrando la formulación simplificada de un modelo matemático de Programación Lineal Entera Mixta (MILP).",
+                bullets: [
+                    "Costo Fijo Anualizado (f_i): Costos fijos derivados de abrir y mantener operativa una instalación potencial en el sitio i.",
+                    "Variables de Decisión Binarias (y_i): 1 si decidimos abrir el centro i; 0 si se mantiene cerrado.",
+                    "Variables de Flujo Continuas (x_ij): Cantidad física de producto enviada desde el CD abierto i hacia el mercado j.",
+                    "Ecuación Objetivo: Minimizar Costo Total = Σ (f_i * y_i) + Σ Σ (c_ij * x_ij), sujeto a satisfacer toda la demanda y límites de capacidad."
+                ],
+                assets: "Ecuaciones matemáticas limpias representando la función objetivo y restricciones. Gráfico de curvas de costos en conflicto.",
+                notes: "Para la asignación definitiva, los ingenieros industriales formulamos modelos de optimización avanzados (como MILP). El gráfico de Prologis nos demuestra que a mayor cantidad de centros de distribución, más altos son los costos fijos totales de la empresa, pero más bajos son los costos de transporte de última milla. El algoritmo matemático busca exactamente el punto mínimo de la curva de costos totales."
+            },
+            9: {
+                num: 9,
+                title: "El Flujo Operativo Interno del CD",
+                layoutSug: "Diseño horizontal lineal simulando una cinta transportadora con 4 paradas consecutivas: Recepción, Almacenamiento, Picking, Despacho.",
+                bullets: [
+                    "Flujo de Entrada (Recepción): Descarga de camiones, verificación física, control de calidad del embalaje y digitalización transaccional en el ERP/WMS.",
+                    "Custodia de Material (Almacenar): Traslado físico de estibas a posiciones fijas de rack o dinámicas (caóticas) en base al análisis ABC.",
+                    "Operación Crítica (Picking): Extracción y preparación de pedidos. Representa por consenso general el mayor costo operativo (50-70% del gasto total).",
+                    "Flujo de Salida (Despacho / Expedición): Consolidación de pedidos, embalaje, etiquetado y carga de vehículos según la ruta del transportista."
+                ],
+                assets: "Íconos de recepción (caja entrando), estanterías de almacenamiento, operario realizando picking y camión despachando.",
+                notes: "Una vez decidida la ubicación macro de nuestra bodega, abrimos las puertas del edificio y pasamos a la intralogística. Todo CD de clase mundial gobierna el flujo físico de materiales con precisión. Como ingenieros, nuestro foco principal siempre debe ser el picking. ¿Por qué? Porque es la actividad que devora más de la mitad del presupuesto operativo interno del CD debido a la alta intensidad de mano de obra y recorridos."
+            },
+            10: {
+                num: 10,
+                title: "Layout en 'U' vs. Flujo Continuo 'Y'",
+                layoutSug: "Diapositiva comparativa de 2 columnas verticales con diagramas esquemáticos del plano bidimensional de una bodega en vista aérea.",
+                bullets: [
+                    "Distribución en 'U': Recepción y Despacho comparten la misma cara del almacén. Permite alta flexibilidad del personal, consolidación de muelles y excelente utilización de los racks traseros.",
+                    "Distribución en Línea Recta / Flujo Continuo ('Y'): Recepción en una cara, Despacho en la cara opuesta. Flujo lineal impecable sin cruce de mercancías ni congestión. Altamente recomendado para Cross-Docking.",
+                    "Trade-off Geométrico: La 'U' maximiza la utilización del espacio y flexibilidad; la línea recta optimiza la rapidez de flujo y evita colisiones en pasillos centrales."
+                ],
+                assets: "Esquemas bidimensionales simplificados del layout de bodega en U y en línea recta con flechas direccionales.",
+                notes: "Al dibujar el layout de muelles en el plano físico, la decisión estándar de la industria es el Layout en U por su extrema flexibilidad de personal (el mismo operario que descarga en la mañana puede cargar camiones en la tarde). Sin embargo, si operamos un flujo rápido tipo Cross-Docking de alta rotación donde los productos entran y salen en horas, la distribución en línea recta es muy superior porque evita colisiones internas."
+            },
+            11: {
+                num: 11,
+                title: "Perfiles de Bodegas: Bodega A vs. Bodega B",
+                layoutSug: "Tabla comparativa de dos columnas o grid simétrico. Columna 1 en tonos grisáceos para la Bodega A (Estabilidad); Columna 2 en tonos verdes o azules claros para la Bodega B (Agilidad).",
+                bullets: [
+                    "Bodega A (Demanda Predecible): Planificación centralizada, slotting y ubicaciones de estibas fijas de largo plazo. Flujos de materiales estables basados en pronósticos masivos (Push).",
+                    "Bodega B (Demanda Variable): Alta variabilidad de pedidos de clientes, preparación intensiva de despachos dinámicos, requiere flexibilidad de layout interna y rápida velocidad de reacción (Pull).",
+                    "Enfoque del Ingeniero: El layout y la política de estanterías del CD deben diseñarse obligatoriamente respondiendo a la naturaleza de la demanda comercial del negocio."
+                ],
+                assets: "Símbolo de regularidad (línea recta continua) y variabilidad (onda sinodal dinámica).",
+                notes: "Para tomar una decisión de layout, primero debemos analizar el perfil del negocio de la empresa. Una bodega para almacenar acero de construcción (Bodega A) requiere racks pesados, pasillos estables y lógicas push de volumen. En cambio, un CD de comercio electrónico (Bodega B) es un hervidero de miles de SKUs pequeños que entran y salen en lotes individuales (lógica pull), exigiendo un diseño interno totalmente distinto."
+            },
+            12: {
+                num: 12,
+                title: "Estrategias de Almacenamiento: Dedicado vs. Compartido",
+                layoutSug: "Estructura dividida. Lado izquierdo con cuadro comparativo de los trade-offs de espacio y tiempo de recorrido. Lado derecho con una visualización de un rack de almacenamiento mostrando posiciones fijas vacías vs. dinámicas ocupadas.",
+                bullets: [
+                    "Almacenamiento Dedicado (Posición Fija): Cada SKU tiene una coordenada única asignada de por vida. Facilidad de acceso manual, pero desperdicia espacio (utilización del almacén promedio < 50%).",
+                    "Almacenamiento Compartido (Caótico): Ubicación dinámica. Cualquier SKU disponible se guarda en cualquier posición vacía del rack.",
+                    "El Rol del WMS (Clase 4): El almacenamiento compartido maximiza la utilización y densidad del suelo, pero requiere obligatoriamente un software WMS para no perder las existencias y planificar rutas de picking."
+                ],
+                assets: "Imagen de un rack con celdas de diferentes colores dinámicos (compartido) frente a un rack con celdas de un solo color y espacios vacíos (dedicado).",
+                notes: "Aquí conectamos con la Clase 4: Tecnologías de Información. Si decidimos usar almacenamiento compartido o caótico para optimizar nuestra utilización de espacio y no gastar en ampliar el edificio físico, estamos obligados a contratar e implementar un WMS. Sin un WMS inteligente que controle en tiempo real las coordenadas de cada pallet dinámico, el operario perdería horas buscando una caja, desplomando nuestro indicador de productividad del CD."
+            },
+            13: {
+                num: 13,
+                title: "Síntesis de Trade-offs en Redes de Distribución",
+                layoutSug: "Cuadro de síntesis de gran tamaño con bordes sutiles dorados, resumiendo la interacción de variables de la clase de manera integrada.",
+                bullets: [
+                    "Localización Macro: Define los límites del costo de transporte entrante y saliente. Es una decisión estratégica e irreversible de largo plazo.",
+                    "Layout Micro: Determina la productividad física diaria y los costos de mano de obra del CD. Es una variable táctico-operativa de mediano plazo.",
+                    "Sincronización Total: La excelencia en SCM exige alinear la ubicación geográfica óptima con la precisión interna en base a análisis ABC apoyado por WMS."
+                ],
+                assets: "Esquema integrado que una el mapa exógeno con el plano interior de la instalación mediante flechas y flujos unificados.",
+                notes: "En resumen, colegas. El diseño de redes de distribución es un balance continuo de fuerzas. Lo macro nos da los límites estructurales de rentabilidad de la red física. Lo micro determina la eficiencia operativa del día a día del personal. Ambas dimensiones deben diseñarse con rigor matemático, siempre enfocados en el ajuste estratégico con el mercado."
+            },
+            14: {
+                num: 14,
+                title: "Taller Formativo Clase 5",
+                layoutSug: "Estructura de cierre impactante. Fondo pizarra oscuro con un bloque brillante en tonos verdes para los requisitos del taller, con un botón destacado representando el link a Blackboard.",
+                bullets: [
+                    "Actividad Formativa: Aplicación práctica y colaborativa del Modelo de Gravedad y Análisis de Layout en U para un caso industrial regional chileno.",
+                    "Duración de la Actividad: 25 Minutos cronometrados en equipos de trabajo.",
+                    "Instrucciones Claras: Descargar plantilla base en Blackboard, resolver trade-offs de diseño del caso y autoevaluarse utilizando la rúbrica formativa unificada USS.",
+                    "Entregable: Informe breve de ingeniería en PDF. Subir al buzón virtual antes del término de la sesión de hoy."
+                ],
+                assets: "Icono de Blackboard y documento PDF con un tick de entrega obligatoria.",
+                notes: "Hemos cubierto la base conceptual teórica. Ahora es momento de pasar de la teoría a la práctica de ingeniería real. Iniciaremos nuestra sesión de taller formativo de 25 minutos. Cada equipo resolverá el problema de localización macro para un nuevo CD en el sur de Chile y evaluará el layout micro óptimo para su operación interna. ¡Organicen sus equipos y abran su portal de Blackboard para descargar la plantilla base!"
+            }
+        };
+
+        // Initialize Lucide Icons
+        window.onload = function() {
+            lucide.createIcons();
+            calculateCentroid();
+            setGridMode('dedicado');
+            populateSlidesHelperSidebar();
+            updateHelperView(1);
+        };
+
+        // Navigation controls for projector mode
+        function updateSlideUI() {
+            // Hide all slides
+            for (let i = 1; i <= totalSlides; i++) {
+                const el = document.getElementById(`slide-${i}`);
+                if (el) el.classList.add('hidden');
+            }
+            // Show active slide
+            const activeEl = document.getElementById(`slide-${currentSlide}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+
+            // Update footer metrics
+            document.getElementById('slide-indicator').innerText = `Diapositiva ${currentSlide} / ${totalSlides}`;
+            
+            // Progress Bar
+            const progPct = (currentSlide / totalSlides) * 100;
+            document.getElementById('slide-progress').style.width = `${progPct}%`;
+
+            // Navigation Button States
+            document.getElementById('btn-prev').disabled = (currentSlide === 1);
+            if (currentSlide === totalSlides) {
+                document.getElementById('btn-next').innerHTML = `Finalizar <i data-lucide="check" class="w-4 h-4"></i>`;
+            } else {
+                document.getElementById('btn-next').innerHTML = `Siguiente <i data-lucide="chevron-right" class="w-4 h-4"></i>`;
+            }
+            lucide.createIcons();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideUI();
+            } else {
+                showToast("¡Ha concluido la presentación teórica! Iniciemos el taller.");
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        // Keyboard arrow navigation
+        document.addEventListener('keydown', function(event) {
+            if (currentMode === 'projector') {
+                if (event.key === 'ArrowRight' || event.key === 'Space') {
+                    nextSlide();
+                } else if (event.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            }
+        });
+
+        // Touch swipe gesture navigation
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        const slideDeck = document.querySelector('.slide-deck');
+        slideDeck.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        slideDeck.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        function handleGesture() {
+            if (currentMode === 'projector') {
+                if (touchendX < touchstartX - 50) {
+                    nextSlide(); // Swipe left
+                }
+                if (touchendX > touchstartX + 50) {
+                    prevSlide(); // Swipe right
+                }
+            }
+        }
+
+        // Switch modes: projector vs slides helper
+        function switchMode(mode) {
+            currentMode = mode;
+            const projEl = document.getElementById('mode-projector');
+            const slidesEl = document.getElementById('mode-slides');
+            const btnProj = document.getElementById('btn-projector');
+            const btnSlides = document.getElementById('btn-slides');
+
+            if (mode === 'projector') {
+                projEl.classList.remove('hidden');
+                slidesEl.classList.add('hidden');
+                btnProj.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-[#1E3E62] text-white shadow-lg shadow-black/20";
+                btnSlides.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-[#1E3E62]/30";
+            } else {
+                projEl.classList.add('hidden');
+                slidesEl.classList.remove('hidden');
+                btnProj.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-[#1E3E62]/30";
+                btnSlides.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-[#1E3E62] text-white shadow-lg shadow-black/20";
+                updateHelperView(currentSlide);
+            }
+            lucide.createIcons();
+        }
+
+        // POPULATE SLIDES HELPER SIDEBAR
+        function populateSlidesHelperSidebar() {
+            const listContainer = document.getElementById('sidebar-slide-list');
+            listContainer.innerHTML = '';
+            
+            for (let i = 1; i <= totalSlides; i++) {
+                const btn = document.createElement('button');
+                btn.id = `helper-btn-${i}`;
+                btn.onclick = () => updateHelperView(i);
+                btn.className = "w-full text-left px-3 py-2 rounded text-xs transition duration-200 truncate flex-shrink-0 md:flex-shrink flex items-center gap-2 text-slate-400 hover:bg-[#1E3E62]/20 hover:text-slate-100";
+                btn.innerHTML = `
+                    <span class="font-mono text-[#FFD700] bg-[#1E3E62]/50 px-1.5 py-0.5 rounded text-[10px]">${i}</span>
+                    <span>${slidesData[i].title}</span>
+                `;
+                listContainer.appendChild(btn);
+            }
+        }
+
+        // UPDATE ASISTENTE GOOGLE SLIDES VIEW
+        let activeHelperSlide = 1;
+        function updateHelperView(slideId) {
+            activeHelperSlide = slideId;
+            currentSlide = slideId; // sync slide counter
+            updateSlideUI(); // sync visual slide
+
+            // Update active list button classes
+            for (let i = 1; i <= totalSlides; i++) {
+                const btn = document.getElementById(`helper-btn-${i}`);
+                if (btn) {
+                    if (i === slideId) {
+                        btn.className = "w-full text-left px-3 py-2 rounded text-xs transition duration-200 truncate flex-shrink-0 md:flex-shrink flex items-center gap-2 bg-[#1E3E62] text-white font-bold border-l-2 border-[#FFD700]";
+                    } else {
+                        btn.className = "w-full text-left px-3 py-2 rounded text-xs transition duration-200 truncate flex-shrink-0 md:flex-shrink flex items-center gap-2 text-slate-400 hover:bg-[#1E3E62]/20 hover:text-slate-100";
+                    }
+                }
+            }
+
+            // Fill content fields
+            const data = slidesData[slideId];
+            document.getElementById('helper-slide-num').innerText = `DIAPOSITIVA ${data.num}`;
+            document.getElementById('helper-slide-title').innerText = data.title;
+            document.getElementById('helper-layout-sug').innerHTML = data.layoutSug;
+            document.getElementById('helper-assets').innerHTML = data.assets;
+            document.getElementById('helper-notes').innerHTML = `<p class='leading-relaxed'>${data.notes}</p>`;
+
+            // Fill Bullets
+            const bulletsContainer = document.getElementById('helper-bullets');
+            bulletsContainer.innerHTML = '';
+            data.bullets.forEach(bullet => {
+                const li = document.createElement('li');
+                li.innerText = bullet;
+                bulletsContainer.appendChild(li);
+            });
+        }
+
+        // CLIPBOARD HELPER FOR TEACHERS
+        function copySlideToClipboard() {
+            const data = slidesData[activeHelperSlide];
+            const structuredText = `DIAPOSITIVA ${data.num}: ${data.title}\n\n[DISEÑO SUGERIDO]:\n${data.layoutSug}\n\n[RECURSOS GRÁFICOS RECOMENDADOS]:\n${data.assets}\n\n[CONTENIDO EN BULLETS]:\n${data.bullets.map(b => "• " + b).join("\n")}\n\n[GUION / NOTAS DEL DOCENTE]:\n${data.notes}`;
+
+            // Create temporary textarea for document.execCommand fallback
+            const el = document.createElement('textarea');
+            el.value = structuredText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            showToast("¡Texto de Diapositiva copiado al portapapeles!");
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = text;
+            toast.classList.remove('translate-y-12', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-12', 'opacity-0');
+            }, 3000);
+        }
+
+        // SLIDE 7: LIVE CENTROID CALCULATOR LOGIC
+        function calculateCentroid() {
+            const x1 = parseFloat(document.getElementById('p1-x').value) || 0;
+            const y1 = parseFloat(document.getElementById('p1-y').value) || 0;
+            const w1 = parseFloat(document.getElementById('p1-w').value) || 0;
+
+            const x2 = parseFloat(document.getElementById('p2-x').value) || 0;
+            const y2 = parseFloat(document.getElementById('p2-y').value) || 0;
+            const w2 = parseFloat(document.getElementById('p2-w').value) || 0;
+
+            const x3 = parseFloat(document.getElementById('p3-x').value) || 0;
+            const y3 = parseFloat(document.getElementById('p3-y').value) || 0;
+            const w3 = parseFloat(document.getElementById('p3-w').value) || 0;
+
+            const totalW = w1 + w2 + w3;
+            if (totalW === 0) return;
+
+            const x_cg = ((x1 * w1) + (x2 * w2) + (x3 * w3)) / totalW;
+            const y_cg = ((y1 * w1) + (y2 * w2) + (y3 * w3)) / totalW;
+
+            document.getElementById('centroid-result').innerText = `X = ${x_cg.toFixed(1)}, Y = ${y_cg.toFixed(1)}`;
+
+            // Draw Cartesian points dynamically in SVG
+            const svg = document.getElementById('gravity-svg');
+            
+            // Clear previous points (keep the reference grid lines)
+            while(svg.childNodes.length > 4) {
+                svg.removeChild(svg.lastChild);
+            }
+
+            // Function to translate warehouse coordinates to SVG coordinates (0-500 scale)
+            function toSVG(x, y) {
+                // assume coords are within 0-600
+                const mappedX = (x / 600) * 400 + 50;
+                const mappedY = 450 - (y / 600) * 400; // invert Y for cartesian
+                return { x: mappedX, y: mappedY };
+            }
+
+            const pt1 = toSVG(x1, y1);
+            const pt2 = toSVG(x2, y2);
+            const pt3 = toSVG(x3, y3);
+            const pt_cg = toSVG(x_cg, y_cg);
+
+            // Draw connection lines to center of gravity
+            drawSVGLine(svg, pt1.x, pt1.y, pt_cg.x, pt_cg.y, "rgba(255, 215, 0, 0.4)", "1");
+            drawSVGLine(svg, pt2.x, pt2.y, pt_cg.x, pt_cg.y, "rgba(255, 215, 0, 0.4)", "1");
+            drawSVGLine(svg, pt3.x, pt3.y, pt_cg.x, pt_cg.y, "rgba(255, 215, 0, 0.4)", "1");
+
+            // Draw Nodes
+            drawSVGCircle(svg, pt1.x, pt1.y, 6 + (w1/200), "#1E3E62", "#FFD700", "P1: Proveedor");
+            drawSVGCircle(svg, pt2.x, pt2.y, 6 + (w2/200), "#1E3E62", "#10B981", "P2: Retail A");
+            drawSVGCircle(svg, pt3.x, pt3.y, 6 + (w3/200), "#1E3E62", "#3B82F6", "P3: Retail B");
+
+            // Draw Centroid Star
+            drawSVGCentreStar(svg, pt_cg.x, pt_cg.y, 10, "#EF4444", "#FFD700", "CD ÓPTIMO");
+        }
+
+        function drawSVGLine(svg, x1, y1, x2, y2, color, width) {
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("x1", x1);
+            line.setAttribute("y1", y1);
+            line.setAttribute("x2", x2);
+            line.setAttribute("y2", y2);
+            line.setAttribute("stroke", color);
+            line.setAttribute("stroke-width", width);
+            svg.appendChild(line);
+        }
+
+        function drawSVGCircle(svg, cx, cy, r, fill, stroke, text) {
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute("cx", cx);
+            circle.setAttribute("cy", cy);
+            circle.setAttribute("r", r);
+            circle.setAttribute("fill", fill);
+            circle.setAttribute("stroke", stroke);
+            circle.setAttribute("stroke-width", "2.5");
+            svg.appendChild(circle);
+
+            const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            txt.setAttribute("x", cx + r + 3);
+            txt.setAttribute("y", cy + 3);
+            txt.setAttribute("fill", "#F1F6F9");
+            txt.setAttribute("font-size", "14px");
+            txt.setAttribute("font-family", "Space Mono");
+            txt.textContent = text;
+            svg.appendChild(txt);
+        }
+
+        function drawSVGCentreStar(svg, cx, cy, size, fill, stroke, text) {
+            const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("x", cx - size);
+            rect.setAttribute("y", cy - size);
+            rect.setAttribute("width", size * 2);
+            rect.setAttribute("height", size * 2);
+            rect.setAttribute("fill", fill);
+            rect.setAttribute("stroke", stroke);
+            rect.setAttribute("stroke-width", "2");
+            rect.setAttribute("transform", `rotate(45 ${cx} ${cy})`);
+            g.appendChild(rect);
+
+            const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            txt.setAttribute("x", cx + size + 5);
+            txt.setAttribute("y", cy + 4);
+            txt.setAttribute("fill", "#FFD700");
+            txt.setAttribute("font-size", "15px");
+            txt.setAttribute("font-family", "Plus Jakarta Sans");
+            txt.setAttribute("font-weight", "bold");
+            txt.textContent = text;
+            g.appendChild(txt);
+
+            svg.appendChild(g);
+        }
+
+        // SLIDE 12: INTERACTIVE STORAGE GRID LOGIC
+        function setGridMode(mode) {
+            const container = document.getElementById('rack-container');
+            container.innerHTML = '';
+
+            const btnDedicado = document.getElementById('grid-btn-dedicado');
+            const btnCompartido = document.getElementById('grid-btn-compartido');
+
+            if (mode === 'dedicado') {
+                btnDedicado.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-[#FFD700] text-[#0B192C] shadow";
+                btnCompartido.className = "text-[10px] font-bold px-2 py-0.5 rounded text-slate-400 hover:text-white transition";
+                
+                document.getElementById('stat-utilization').innerText = "44.4%";
+                document.getElementById('stat-utilization').className = "text-amber-400 text-xs";
+                document.getElementById('stat-wms').innerText = "Opcional / No Requerido";
+                document.getElementById('stat-wms').className = "text-slate-400 text-xs";
+
+                // In Dedicated, certain columns only hold certain categories (represented by colors).
+                // If there is no demand/stock, spaces remain empty (gray).
+                const config = [
+                    '#FFD700', '#FFD700', 'gray', 'gray', 'gray', 'gray',  // Col 1: Prod Pan
+                    '#3B82F6', '#3B82F6', '#3B82F6', 'gray', 'gray', 'gray', // Col 2: Prod Leche
+                    '#10B981', 'gray', 'gray', 'gray', 'gray', 'gray',       // Col 3: Prod Huevos
+                ];
+
+                for (let i = 0; i < 18; i++) {
+                    const color = config[i] || 'gray';
+                    createRackCell(container, color);
+                }
+
+            } else {
+                btnCompartido.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-600 text-white shadow";
+                btnDedicado.className = "text-[10px] font-bold px-2 py-0.5 rounded text-slate-400 hover:text-white transition";
+
+                document.getElementById('stat-utilization').innerText = "88.9%";
+                document.getElementById('stat-utilization').className = "text-emerald-400 text-xs font-bold";
+                document.getElementById('stat-wms').innerText = "¡WMS ACTIVO & OBLIGATORIO!";
+                document.getElementById('stat-wms').className = "text-[#FFD700] text-xs font-bold";
+
+                // In Shared/Chaotic, items populate all empty spaces sequentially, achieving high density.
+                const config = [
+                    '#FFD700', '#FFD700', '#3B82F6', '#3B82F6', '#3B82F6', '#10B981',
+                    '#FFD700', '#3B82F6', '#10B981', '#10B981', '#FFD700', '#3B82F6',
+                    '#10B981', '#FFD700', '#FFD700', '#3B82F6', 'gray', 'gray' // only 2 gray left
+                ];
+
+                for (let i = 0; i < 18; i++) {
+                    const color = config[i];
+                    createRackCell(container, color);
+                }
+            }
+        }
+
+        function createRackCell(container, color) {
+            const cell = document.createElement('div');
+            cell.className = "h-7 rounded border flex items-center justify-center transition-all duration-300 relative group";
+            
+            if (color === 'gray') {
+                cell.className += " bg-slate-800/40 border-slate-700/30";
+                cell.innerHTML = `<span class="text-[9px] text-slate-600 font-mono">Empty</span>`;
+            } else {
+                cell.className += " border-[#FFD700]/20";
+                cell.style.backgroundColor = color + "20"; // trans
+                cell.innerHTML = `
+                    <div class="w-3.5 h-3.5 rounded shadow-sm" style="background-color: ${color}"></div>
+                `;
+            }
+            container.appendChild(cell);
+        }
+    </script>
+</body>
+</html>
