@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 5: Diseño y Localización de CD - Sábado 18 de Julio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0B192C;
+            color: #F1F6F9;
+        }
+        
+        .code-font {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B192C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E3E62;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFD700;
+        }
+
+        .active-block {
+            border-left: 4px solid #FFD700;
+            background-color: rgba(30, 62, 98, 0.4);
+        }
+
+        /* Interactive grid effect */
+        .grid-bg {
+            background-size: 30px 30px;
+            background-image: linear-gradient(to right, rgba(30, 62, 98, 0.15) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(30, 62, 98, 0.15) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden grid-bg">
+
+    <!-- Header Section -->
+    <header class="bg-[#0B192C]/95 border-b border-[#1E3E62] px-6 py-4 flex justify-between items-center z-10 backdrop-blur-md">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-[#1E3E62] rounded-lg border border-[#FFD700]/30 text-[#FFD700]">
+                <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-md md:text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                    USS Gestión Logística <span class="text-xs px-2 py-0.5 bg-[#1E3E62] text-[#FFD700] rounded-full border border-[#FFD700]/20 font-mono">FITA0087</span>
+                </h1>
+                <p class="text-xs text-slate-400">Clase 5: Diseño y Localización de Centros de Distribución (CEDI)</p>
+            </div>
+        </div>
+
+        <!-- Class Metadata Panel -->
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex flex-col text-right">
+                <span class="text-xs text-[#FFD700] font-bold font-mono">📅 Sábado 18 de Julio</span>
+                <span class="text-[11px] text-slate-400">10:00 AM - 12:50 PM (2h 50m)</span>
+            </div>
+            <div class="bg-[#1E3E62]/40 px-4 py-2 rounded-xl border border-[#1E3E62] text-center">
+                <span class="text-[10px] text-slate-400 font-mono block uppercase tracking-wider">Hora Simulación</span>
+                <span id="simulation-clock" class="text-md font-bold text-white font-mono tracking-widest">10:00:00</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- SIDEBAR: Agenda & Schedule Tracker -->
+        <aside class="w-80 bg-[#0B192C] border-r border-[#1E3E62] p-4 flex flex-col justify-between overflow-y-auto">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xs font-bold tracking-wider text-slate-400 uppercase">Agenda de la Sesión</h3>
+                    <span id="overall-progress" class="text-[10px] font-mono text-[#FFD700] font-bold">0% Completado</span>
+                </div>
+                
+                <!-- Timeline Blocks -->
+                <div class="space-y-2" id="timeline-container">
+                    
+                    <!-- BLOCK 1: ACTIVACIÓN -->
+                    <button onclick="selectBlock(1)" id="block-1" class="w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3">
+                        <span class="text-xs font-mono font-bold bg-[#1E3E62] text-[#FFD700] p-1.5 rounded-lg border border-[#FFD700]/10 flex-shrink-0 font-mono">10m</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Activación de Conocimiento</h4>
+                            <p class="text-[10px] text-slate-400 font-mono mt-0.5">10:00 AM - 10:10 AM</p>
+                        </div>
+                    </button>
+
+                    <!-- BLOCK 2: TEORÍA -->
+                    <button onclick="selectBlock(2)" id="block-2" class="w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3">
+                        <span class="text-xs font-mono font-bold bg-[#1E3E62] text-amber-500 p-1.5 rounded-lg border border-amber-500/10 flex-shrink-0 font-mono">40m</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Clase Teórica Expositiva</h4>
+                            <p class="text-[10px] text-slate-400 font-mono mt-0.5">10:10 AM - 10:50 AM</p>
+                        </div>
+                    </button>
+
+                    <!-- BLOCK 3: PRÁCTICA FORMATIVA -->
+                    <button onclick="selectBlock(3)" id="block-3" class="w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3">
+                        <span class="text-xs font-mono font-bold bg-[#1E3E62] text-emerald-400 p-1.5 rounded-lg border border-emerald-400/10 flex-shrink-0 font-mono">25m</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Actividad de Activación</h4>
+                            <p class="text-[10px] text-slate-400 font-mono mt-0.5">10:50 AM - 11:15 AM</p>
+                        </div>
+                    </button>
+
+                    <!-- BLOCK 4: BREAK -->
+                    <button onclick="selectBlock(4)" id="block-4" class="w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3">
+                        <span class="text-xs font-mono font-bold bg-[#1E3E62] text-purple-400 p-1.5 rounded-lg border border-purple-400/10 flex-shrink-0 font-mono">15m</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Coffee Break</h4>
+                            <p class="text-[10px] text-slate-400 font-mono mt-0.5">11:15 AM - 11:30 AM</p>
+                        </div>
+                    </button>
+
+                    <!-- BLOCK 5: TALLER EVALUADO -->
+                    <button onclick="selectBlock(5)" id="block-5" class="w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3">
+                        <span class="text-xs font-mono font-bold bg-[#1E3E62] text-red-400 p-1.5 rounded-lg border border-red-400/10 flex-shrink-0 font-mono">40m</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Taller Calificado (5%)</h4>
+                            <p class="text-[10px] text-slate-400 font-mono mt-0.5">11:30 AM - 12:10 PM</p>
+                        </div>
+                    </button>
+
+                    <!-- BLOCK 6: CIERRE & RETROALIMENTACIÓN -->
+                    <button onclick="selectBlock(6)" id="block-6" class="w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3">
+                        <span class="text-xs font-mono font-bold bg-[#1E3E62] text-cyan-400 p-1.5 rounded-lg border border-cyan-400/10 flex-shrink-0 font-mono">40m</span>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Cierre y Retroalimentación</h4>
+                            <p class="text-[10px] text-slate-400 font-mono mt-0.5">12:10 PM - 12:50 PM</p>
+                        </div>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="pt-4 border-t border-[#1E3E62] space-y-3">
+                <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest block">Controles Docente</span>
+                <div class="flex gap-2">
+                    <button onclick="adjustSimTime(-10)" class="flex-1 py-1 px-2 bg-[#1E3E62] hover:bg-[#1E3E62]/80 text-white font-mono text-xs rounded border border-[#FFD700]/15">-10 min</button>
+                    <button onclick="toggleClockPlay()" id="btn-clock-play" class="py-1 px-3 bg-[#FFD700] text-[#0B192C] font-bold text-xs rounded shadow flex items-center gap-1">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Play
+                    </button>
+                    <button onclick="adjustSimTime(10)" class="flex-1 py-1 px-2 bg-[#1E3E62] hover:bg-[#1E3E62]/80 text-white font-mono text-xs rounded border border-[#FFD700]/15">+10 min</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN PANEL: Slide Content Viewer -->
+        <main class="flex-1 flex flex-col overflow-y-auto p-6 md:p-8">
+
+            <!-- BLOQUE 1: ACTIVACIÓN DE CONOCIMIENTOS -->
+            <div id="content-block-1" class="hidden space-y-6">
+                <div class="border-b border-[#1E3E62] pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono text-[#FFD700] uppercase block tracking-wider">Hito 1 • 10 minutos (10:00 - 10:10)</span>
+                        <h2 class="text-2xl font-bold text-white">Activación de Conocimientos Previos</h2>
+                    </div>
+                    <div class="bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold animate-pulse font-mono">
+                        <i data-lucide="timer" class="w-4 h-4"></i>
+                        <span id="countdown-1">10:00</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 text-sm">
+                    Para iniciar la clase teórica de hoy, reflexionemos grupalmente sobre los conceptos de las clases anteriores y su relación directa con las operaciones de almacenamiento:
+                </p>
+
+                <!-- Questions List Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-[#1E3E62]/20 p-5 rounded-2xl border border-[#1E3E62] space-y-4 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono text-[#FFD700] tracking-wider block font-bold">PREGUNTA DE REFLEXIÓN 1</span>
+                            <h3 class="text-md font-bold text-white">¿Por qué un CEDI en el sur se considera un "Centro de Valor" y no solo una bodega de costos?</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Vinculen la respuesta con las Salmoneras o Astilleros donde muchos de ustedes trabajan. Si una empresa entrega de forma descentralizada, ¿qué sufre en transporte entrante (*Inbound*) frente a un despacho consolidado?
+                            </p>
+                        </div>
+                        <button onclick="toggleAnswer('ans-1')" class="mt-4 text-xs font-bold text-[#FFD700] flex items-center gap-1.5 hover:underline">
+                            <i data-lucide="eye" class="w-4 h-4"></i> Mostrar Guía de Respuesta
+                        </button>
+                        <div id="ans-1" class="hidden p-3 bg-[#0B192C] rounded-lg border border-[#1E3E62] text-[11px] text-slate-300 mt-2 leading-relaxed">
+                            <strong>Respuesta Esperada:</strong> El CD consolida fletes logrando economías de escala en el transporte principal. Además, acerca el producto al mercado de consumo reduciendo el tiempo de ciclo total y mejorando el nivel de servicio. Evita que los proveedores locales sufran fletes directos ineficientes.
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1E3E62]/20 p-5 rounded-2xl border border-[#1E3E62] space-y-4 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono text-[#FFD700] tracking-wider block font-bold">PREGUNTA DE REFLEXIÓN 2</span>
+                            <h3 class="text-md font-bold text-white">Si el WMS (visto en Clase 4) optimiza las posiciones, ¿cómo se relaciona con la Utilización (KPI Clase 3)?</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Imaginen una bodega con almacenamiento dedicado sin tecnología. ¿Qué ocurre con la densidad espacial cuando las ventas sufren una estacionalidad drástica? ¿Cómo ayuda el WMS a implementar el almacenamiento dinámico (caótico)?
+                            </p>
+                        </div>
+                        <button onclick="toggleAnswer('ans-2')" class="mt-4 text-xs font-bold text-[#FFD700] flex items-center gap-1.5 hover:underline">
+                            <i data-lucide="eye" class="w-4 h-4"></i> Mostrar Guía de Respuesta
+                        </button>
+                        <div id="ans-2" class="hidden p-3 bg-[#0B192C] rounded-lg border border-[#1E3E62] text-[11px] text-slate-300 mt-2 leading-relaxed">
+                            <strong>Respuesta Esperada:</strong> En la Clase 3 definimos Utilización como la fracción del espacio disponible realmente ocupada. Un WMS (Clase 4) permite operar almacenamiento compartido. Al no reservar posiciones fijas inútiles, el WMS maximiza el uso del volumen cúbico y eleva la utilización sin necesidad de ampliar el edificio físico.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 2: CLASE TEÓRICA EXPOSITIVA (SIMPLIFICADA) -->
+            <div id="content-block-2" class="hidden space-y-6">
+                <div class="border-b border-[#1E3E62] pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono text-[#FFD700] uppercase block tracking-wider">Hito 2 • 40 minutos (10:10 - 10:50)</span>
+                        <h2 class="text-2xl font-bold text-white">Diseño y Localización Estratégica de Centros de Distribución</h2>
+                    </div>
+                    <div class="bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold font-mono">
+                        <i data-lucide="timer" class="w-4 h-4"></i>
+                        <span id="countdown-2">40:00</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 text-sm">
+                    Revisión de los cuatro temas centrales que guiarán la toma de decisiones estratégicas en redes de distribución y el diseño intralogístico de la sesión de hoy:
+                </p>
+
+                <!-- 4 Pillars Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                    
+                    <!-- Pilar 1 -->
+                    <div class="p-6 bg-[#1E3E62]/20 rounded-2xl border border-[#1E3E62] space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-[#0B192C] rounded-xl border border-[#FFD700]/30 text-[#FFD700]">
+                                <i data-lucide="globe" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Estrategia externa y localización regional</h3>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Análisis estratégico del rol del CD como consolidador y regulador de la variabilidad agregada en la red. Evaluación multifactorial de variables macroeconómicas, de mercado y de infraestructura exógena.
+                        </p>
+                    </div>
+
+                    <!-- Pilar 2 -->
+                    <div class="p-6 bg-[#1E3E62]/20 rounded-2xl border border-[#1E3E62] space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-[#0B192C] rounded-xl border border-amber-500/30 text-amber-500">
+                                <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Modelos cuantitativos de redes</h3>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Uso del Modelo de Gravedad para identificar el centroide óptimo ponderado por volumen de carga, y balances cuantitativos avanzados (MILP) que ponderan costos fijos frente a costos de despacho para la red física de distribución.
+                        </p>
+                    </div>
+
+                    <!-- Pilar 3 -->
+                    <div class="p-6 bg-[#1E3E62]/20 rounded-2xl border border-[#1E3E62] space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-[#0B192C] rounded-xl border border-emerald-500/30 text-emerald-400">
+                                <i data-lucide="layout" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Flujo internos y layouts de bodega</h3>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Mapeo físico de las operaciones del CD (Recepción, Almacenamiento, Picking y Despacho) y análisis comparativo de la geometría bidimensional del Layout en "U" frente al Flujo Continuo en línea recta.
+                        </p>
+                    </div>
+
+                    <!-- Pilar 4 -->
+                    <div class="p-6 bg-[#1E3E62]/20 rounded-2xl border border-[#1E3E62] space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-[#0B192C] rounded-xl border border-cyan-500/30 text-cyan-400">
+                                <i data-lucide="database" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Política de almacenamiento</h3>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Sistemas de ubicación de SKUs en base a la Ley de Pareto (Análisis ABC). Evaluación del trade-off entre Almacenamiento Dedicado (ranura fija) y Almacenamiento Compartido (caótico) y su dependencia transaccional de un WMS.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BLOQUE 3: ACTIVIDAD DE ACTIVACIÓN (SIMPLIFICADA) -->
+            <div id="content-block-3" class="hidden space-y-6">
+                <div class="border-b border-[#1E3E62] pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono text-[#FFD700] uppercase block tracking-wider">Hito 3 • 25 minutos (10:50 - 11:15)</span>
+                        <h2 class="text-2xl font-bold text-white">Actividad Práctica de Activación</h2>
+                    </div>
+                    <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold font-mono">
+                        <i data-lucide="timer" class="w-4 h-4"></i>
+                        <span id="countdown-3">25:00</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E3E62]/10 p-6 rounded-2xl border border-[#1E3E62] space-y-5">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-[#0B192C] rounded-xl border border-emerald-500/30 text-emerald-400 flex-shrink-0">
+                            <i data-lucide="map-pin" class="w-8 h-8"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-lg font-bold text-white">Ubicación del CEDI Regional: Caso Salmones Austral</h3>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                <strong>Descripción de la Actividad:</strong> En equipos de trabajo (3-4 integrantes), los estudiantes resolverán el problema de localización macro para la nueva central de alimento balanceado de "Salmones Austral" en la Región de Los Lagos. El objetivo es aplicar de forma práctica el Modelo de Gravedad para calcular la coordenada del centroide óptimo y realizar un análisis crítico e ingenieril del impacto de la geografía, transbordos y el clima en los costos de transporte de la zona sur.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Compact Case Specs -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#0B192C]/80 p-4 rounded-xl border border-[#1E3E62] text-xs">
+                        <div class="space-y-1.5">
+                            <span class="text-slate-400 block font-mono">DATOS DE LA ACTIVIDAD:</span>
+                            <p class="text-white"><strong>Ubicación de Destinos:</strong> Calbuco (120, 150), Castro (220, 80), Quellón (240, 40).</p>
+                            <p class="text-white"><strong>Demandas de Carga:</strong> 1.500 Ton, 1.200 Ton, y 800 Ton respectivamente.</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <span class="text-slate-400 block font-mono">REQUERIMIENTOS:</span>
+                            <ul class="list-disc pl-4 text-slate-300 space-y-1">
+                                <li>Calcular las coordenadas óptimas $(X_{CG}, Y_{CG})$ del CEDI.</li>
+                                <li>Explicar críticamente cómo afectan las variables físicas reales de la región al modelo teórico lineal.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#FFD700]/10 p-3 rounded-lg border border-[#FFD700]/30 text-xs text-slate-300">
+                        <strong>Entregable:</strong> Resolver plantilla USS en Blackboard y subir reporte breve en PDF al finalizar los 25 minutos de la sesión.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 4: COFFEE BREAK -->
+            <div id="content-block-4" class="hidden space-y-6">
+                <div class="border-b border-[#1E3E62] pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono text-[#FFD700] uppercase block tracking-wider">Hito 4 • 15 minutos (11:15 - 11:30)</span>
+                        <h2 class="text-2xl font-bold text-white">Coffee Break USS</h2>
+                    </div>
+                    <div class="bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold font-mono">
+                        <i data-lucide="timer" class="w-4 h-4"></i>
+                        <span id="countdown-4">15:00</span>
+                    </div>
+                </div>
+
+                <div class="p-12 text-center bg-[#1E3E62]/10 rounded-3xl border border-[#1E3E62] space-y-4 max-w-xl mx-auto my-auto flex flex-col items-center">
+                    <div class="p-4 bg-purple-600/10 border border-purple-400/20 text-purple-400 rounded-full w-fit">
+                        <i data-lucide="coffee" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Tiempo de Descanso</h3>
+                    <p class="text-sm text-slate-400 max-w-sm">
+                        Profesionales Advance, aprovechen estos 15 minutos para refrescarse, tomar un café y estirar las piernas antes de iniciar el taller sumativo calificado.
+                    </p>
+                </div>
+            </div>
+
+            <!-- BLOQUE 5: TALLER CALIFICADO (SIMPLIFICADA) -->
+            <div id="content-block-5" class="hidden space-y-6">
+                <div class="border-b border-[#1E3E62] pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono text-[#FFD700] uppercase block tracking-wider">Hito 5 • 40 minutos (11:30 - 12:10)</span>
+                        <h2 class="text-2xl font-bold text-white">Taller Calificado Sumativo (5%)</h2>
+                    </div>
+                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold font-mono">
+                        <i data-lucide="timer" class="w-4 h-4"></i>
+                        <span id="countdown-5">40:00</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E3E62]/10 p-6 rounded-2xl border border-[#1E3E62] space-y-5">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-[#0B192C] rounded-xl border border-red-500/30 text-red-400 flex-shrink-0">
+                            <i data-lucide="award" class="w-8 h-8"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-lg font-bold text-white">Evaluación Sumativa: Rediseño de Red e Intralogística (Salmones Austral)</h3>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                <strong>Descripción del Taller:</strong> Los equipos de trabajo aplicarán de manera integrada las herramientas analíticas avanzadas de la Clase 5 para tomar decisiones sobre el inventario y el layout del CEDI consolidado. El taller consta de dos etapas evaluadas de forma sumativa (5% de ponderación de la asignatura):
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Grid of Taller phases -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Phase 1 -->
+                        <div class="p-4 bg-[#0B192C]/80 rounded-xl border border-[#1E3E62] space-y-1">
+                            <span class="text-[10px] font-mono text-slate-400 uppercase">PARTE A • RISK POOLING</span>
+                            <h4 class="text-xs font-bold text-white">Estrategia de Stock de Seguridad</h4>
+                            <p class="text-[11px] text-slate-300">
+                                Aplicar la Ley de la Raíz Cuadrada para calcular el inventario de seguridad unificado al pasar de 4 bodegas independientes a 1 CEDI continental, cuantificando el ahorro absoluto y porcentual de capital inmovilizado.
+                            </p>
+                        </div>
+                        <!-- Phase 2 -->
+                        <div class="p-4 bg-[#0B192C]/80 rounded-xl border border-[#1E3E62] space-y-1">
+                            <span class="text-[10px] font-mono text-slate-400 uppercase">PARTE B • INTRALOGÍSTICA</span>
+                            <h4 class="text-xs font-bold text-white">Estrategia de Layout & WMS</h4>
+                            <p class="text-[11px] text-slate-300">
+                                Justificar técnicamente la elección del Layout en U para maximizar la flexibilidad del personal y la utilización del volumen de estanterías, explicando cómo el WMS y la Ley de Pareto (80/20) optimizan el slotting y picking.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-500/10 p-3 rounded-lg border border-red-500/20 text-xs text-slate-200">
+                        ⚠️ <strong>Entrega Grupal:</strong> Enviar el formulario de respuestas completo en PDF por el buzón virtual de Blackboard antes de las 12:10 PM.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 6: CIERRE & RETROALIMENTACIÓN -->
+            <div id="content-block-6" class="hidden space-y-6">
+                <div class="border-b border-[#1E3E62] pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-mono text-[#FFD700] uppercase block tracking-wider">Hito 6 • 40 minutos (12:10 - 12:50)</span>
+                        <h2 class="text-2xl font-bold text-white">Cierre, Pauta y Retroalimentación Directa</h2>
+                    </div>
+                    <div class="bg-[#1E3E62]/40 text-emerald-400 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold border border-[#1E3E62]">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                        Fase de Cierre Activa
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Teacher Correction Box -->
+                    <div class="bg-[#1E3E62]/20 p-5 rounded-2xl border border-[#1E3E62] space-y-4">
+                        <div class="flex items-center gap-2 text-md font-bold text-white uppercase border-b border-[#1E3E62] pb-2">
+                            <i data-lucide="check-circle-2" class="text-emerald-400 w-5 h-5"></i>
+                            Pauta de Retroalimentación Rápida
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-3 leading-relaxed">
+                            <li>
+                                <strong class="text-[#FFD700]">Coordenada CG:</strong> El centro de gravedad cartesiano óptimo debe ser exactamente <span class="font-bold text-white">(181,7 ; 100,9)</span>.
+                            </li>
+                            <li>
+                                <strong class="text-[#FFD700]">Ley de Raíz Cuadrada:</strong> Reducir las instalaciones de 4 a 1 central disminuye el stock de seguridad requerido de 4.000 unidades a exactamente <span class="font-bold text-white">2.000 unidades</span> (un 50% de reducción absoluta).
+                            </li>
+                            <li>
+                                <strong class="text-[#FFD700]">Layout en U:</strong> Justificado para flexibilizar la mano de obra contratada al compartir el andén de descarga y carga, y optimizar el almacenamiento de mercancía de menor rotación en la parte trasera.
+                            </li>
+                            <li>
+                                <strong class="text-[#FFD700]">Slotting ABC:</strong> Los SKUs Clase A (el 20% que genera el 80% del pick) deben ubicarse a baja altura y en posiciones cercanas a los muelles para minimizar distancias de recolección. El WMS es obligatorio en lógicas de asignación dinámica compartida para no perder la visibilidad del stock.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Grade Scale USS Helper -->
+                    <div class="bg-[#1E3E62]/20 p-5 rounded-2xl border border-[#1E3E62] space-y-4">
+                        <div class="flex items-center gap-2 text-md font-bold text-white uppercase border-b border-[#1E3E62] pb-2">
+                            <i data-lucide="award" class="text-[#FFD700] w-5 h-5"></i>
+                            Escala de Calificación Unificada USS
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs p-2 bg-[#0B192C] rounded-lg border border-[#1E3E62]">
+                                <span class="font-bold text-emerald-400">Excelente (Nota 6.5 - 7.0)</span>
+                                <span class="font-mono text-slate-300">91 - 100 Puntos</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs p-2 bg-[#0B192C] rounded-lg border border-[#1E3E62]">
+                                <span class="font-bold text-emerald-500">Muy Bueno (Nota 5.8 - 6.4)</span>
+                                <span class="font-mono text-slate-300">81 - 90 Puntos</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs p-2 bg-[#0B192C] rounded-lg border border-[#1E3E62]">
+                                <span class="font-bold text-[#FFD700]">Bueno (Nota 5.0 - 5.7)</span>
+                                <span class="font-mono text-slate-300">70 - 80 Puntos</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs p-2 bg-[#0B192C] rounded-lg border border-[#1E3E62]">
+                                <span class="font-bold text-amber-500">Suficiente (Nota 4.0 - 4.9)</span>
+                                <span class="font-mono text-slate-300">60 - 69 Puntos</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs p-2 bg-[#0B192C] rounded-lg border border-[#1E3E62]">
+                                <span class="font-bold text-red-500">Insuficiente (Nota 1.0 - 3.9)</span>
+                                <span class="font-mono text-slate-300">0 - 59 Puntos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E3E62]/30 p-4 rounded-xl border border-[#1E3E62] text-xs text-slate-300 flex flex-col gap-2">
+                    <span class="font-bold text-white flex items-center gap-1"><i data-lucide="info" class="w-4 h-4 text-[#FFD700]"></i> Tareas al Cierre de Sesión:</span>
+                    <p class="pl-5 leading-relaxed">
+                        1. Retroalimente brevemente en el proyector mostrando las coordenadas calculadas en el taller.<br>
+                        2. Resuelva las dudas finales sobre la Ley de la Raíz Cuadrada (Risk Pooling).<br>
+                        3. Publique el buzón de Blackboard para los reportes de grupos y dé las indicaciones para la Clase 6 de Transporte.
+                    </p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-20 right-6 bg-[#1E3E62] text-[#FFD700] text-xs px-4 py-3 rounded-xl border border-[#FFD700]/30 shadow-2xl transition-all duration-300 transform translate-y-12 opacity-0 z-50 flex items-center gap-2">
+        <i data-lucide="info" class="w-4 h-4 text-[#FFD700]"></i>
+        <span id="toast-text">¡Notificación!</span>
+    </div>
+
+    <!-- Scripts Section -->
+    <script>
+        // Total minutes for class schedule setup (170 min total, from 10:00 to 12:50)
+        let simHour = 10;
+        let simMin = 0;
+        let simSec = 0;
+        let activeBlockId = 1;
+        let isClockPlaying = false;
+        let intervalId = null;
+
+        const blockSchedules = [
+            { id: 1, start: 0, end: 10, name: "Activación de Conocimiento" },
+            { id: 2, start: 10, end: 50, name: "Clase Teórica Expositiva" },
+            { id: 3, start: 50, end: 75, name: "Actividad de Activación" },
+            { id: 4, start: 75, end: 90, name: "Coffee Break" },
+            { id: 5, start: 90, end: 130, name: "Taller Calificado (5%)" },
+            { id: 6, start: 130, end: 170, name: "Retroalimentación y Cierre" }
+        ];
+
+        window.onload = function() {
+            lucide.createIcons();
+            updateTimelineUI();
+            updateSimulationClock();
+            startAutomaticClock();
+            selectBlock(1);
+        };
+
+        function startAutomaticClock() {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                if (isClockPlaying) {
+                    simSec++;
+                    if (simSec >= 60) {
+                        simSec = 0;
+                        simMin++;
+                        if (simMin >= 60) {
+                            simMin = 0;
+                            simHour++;
+                            if (simHour >= 24) simHour = 0;
+                        }
+                        evaluateBlockByTime();
+                    }
+                    updateSimulationClock();
+                    updateTimeRemainingInBlock();
+                }
+            }, 100);
+        }
+
+        function toggleClockPlay() {
+            isClockPlaying = !isClockPlaying;
+            const btn = document.getElementById('btn-clock-play');
+            if (isClockPlaying) {
+                btn.innerHTML = `<i data-lucide="pause" class="w-3.5 h-3.5"></i> Pausa`;
+                btn.className = "py-1 px-3 bg-[#1E3E62] text-white font-bold text-xs rounded border border-[#FFD700]/30 shadow";
+                showToast("Reloj de Simulación iniciado (Velocidad acelerada para demostración)");
+            } else {
+                btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i> Play`;
+                btn.className = "py-1 px-3 bg-[#FFD700] text-[#0B192C] font-bold text-xs rounded shadow flex items-center gap-1";
+                showToast("Reloj de Simulación en Pausa");
+            }
+            lucide.createIcons();
+        }
+
+        function adjustSimTime(mins) {
+            simMin += mins;
+            if (simMin >= 60) {
+                simMin = simMin % 60;
+                simHour += 1;
+            } else if (simMin < 0) {
+                simMin = 60 + simMin;
+                simHour -= 1;
+            }
+            evaluateBlockByTime();
+            updateSimulationClock();
+            updateTimeRemainingInBlock();
+            showToast(`Reloj de Simulación ajustado por ${mins > 0 ? '+' : ''}${mins} minutos`);
+        }
+
+        function updateSimulationClock() {
+            const pad = (n) => String(n).padStart(2, '0');
+            document.getElementById('simulation-clock').innerText = `${pad(simHour)}:${pad(simMin)}:${pad(simSec)}`;
+        }
+
+        function evaluateBlockByTime() {
+            let passedMins = (simHour - 10) * 60 + simMin;
+            if (passedMins < 0) passedMins = 0;
+            if (passedMins > 170) passedMins = 170;
+
+            let foundBlockId = 1;
+            for (let b of blockSchedules) {
+                if (passedMins >= b.start && passedMins < b.end) {
+                    foundBlockId = b.id;
+                    break;
+                }
+            }
+            if (passedMins >= 170) foundBlockId = 6;
+
+            if (foundBlockId !== activeBlockId) {
+                selectBlock(foundBlockId);
+            }
+
+            const progressPct = ((passedMins / 170) * 100).toFixed(0);
+            document.getElementById('overall-progress').innerText = `${progressPct}% Completado`;
+        }
+
+        function selectBlock(id) {
+            activeBlockId = id;
+            
+            const targetSchedule = blockSchedules.find(b => b.id === id);
+            if (targetSchedule) {
+                const totalStartMins = targetSchedule.start;
+                simHour = 10 + Math.floor(totalStartMins / 60);
+                simMin = totalStartMins % 60;
+                simSec = 0;
+                updateSimulationClock();
+            }
+
+            updateTimelineUI();
+            updateBlockContentViewer();
+            updateTimeRemainingInBlock();
+        }
+
+        function updateTimelineUI() {
+            for (let i = 1; i <= 6; i++) {
+                const btn = document.getElementById(`block-${i}`);
+                if (btn) {
+                    if (i === activeBlockId) {
+                        btn.className = "w-full text-left p-3 rounded-xl transition flex items-start gap-3 active-block border-[#FFD700]";
+                    } else {
+                        btn.className = "w-full text-left p-3 rounded-xl border border-[#1E3E62]/50 hover:bg-[#1E3E62]/20 transition flex items-start gap-3 bg-transparent";
+                    }
+                }
+            }
+        }
+
+        function updateBlockContentViewer() {
+            for (let i = 1; i <= 6; i++) {
+                const blockContent = document.getElementById(`content-block-${i}`);
+                if (blockContent) blockContent.classList.add('hidden');
+            }
+            const activeContent = document.getElementById(`content-block-${activeBlockId}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+        }
+
+        function updateTimeRemainingInBlock() {
+            const targetSchedule = blockSchedules.find(b => b.id === activeBlockId);
+            if (!targetSchedule) return;
+
+            let passedMins = (simHour - 10) * 60 + simMin;
+            let remainingMins = targetSchedule.end - passedMins;
+            let remainingSecs = 60 - simSec;
+
+            if (remainingSecs === 60) {
+                remainingSecs = 0;
+            } else {
+                remainingMins -= 1;
+            }
+
+            if (remainingMins < 0) {
+                remainingMins = 0;
+                remainingSecs = 0;
+            }
+
+            const pad = (n) => String(n).padStart(2, '0');
+            const formatted = `${pad(remainingMins)}:${pad(remainingSecs)}`;
+            
+            const timerEl = document.getElementById(`countdown-${activeBlockId}`);
+            if (timerEl) {
+                timerEl.innerText = formatted;
+            }
+        }
+
+        function toggleAnswer(id) {
+            const ans = document.getElementById(id);
+            if (ans) ans.classList.toggle('hidden');
+        }
+
+        function calculateGravityCase() {
+            const div = document.getElementById('centroid-calc-output');
+            div.classList.toggle('hidden');
+            showToast("Simulación de coordenadas del CEDI calculadas con exactitud.");
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = text;
+            toast.classList.remove('translate-y-12', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-12', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
